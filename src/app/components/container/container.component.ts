@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import * as SC from 'soundcloud';
+import { NewsApiService } from '../../services/news-api.service';
+import {filter, map, subscribeOn} from 'rxjs/operators';
 
 @Component({
   selector: 'app-container',
@@ -10,45 +10,45 @@ import * as SC from 'soundcloud';
   styleUrls: ['./container.component.css']
 })
 export class ContainerComponent implements OnInit {
-  //CORS solution
-  proxyUrl: any = "https://cors-anywhere.herokuapp.com/";
-  soundcloudData: any;
-  songLink: any;
-  fixedSongLink: any;
-  constructor(private http: HttpClient) { }
+  
+  state:any[] = [];
+  state2:any[] = [];
+
+  constructor(private http: HttpClient, private newsApiService: NewsApiService) {
+  }
 
   
 
   ngOnInit() {
-    // this.soundcloudData = this.getData()
-    // .subscribe((data) => {
-    //   console.log(data);
-    //   let afterUriUrl;
-    //   this.http.get(data).subscribe(afterUriURL => 
-    //     afterUriUrl = afterUriURL
-    //     );
-    //   // this.songLink = `${data}${'/stream?client_id=SFNLsjZPQQvfdBJkLNKMJPYhkG55YImu'}`;
-    //   console.log(afterUriUrl)
+    this.getNews();
+    this.getTech();
+  }
 
-    //   // console.log(this.songLink);  
-    // })
-
-    SC.initialize({
-      client_id: "SFNLsjZPQQvfdBJkLNKMJPYhkG55YImu"
+  getNews() {
+    this.newsApiService.getData()
+    .pipe(map(results => {
+      // console.log(results);
+      return results.articles;
+    }))
+    .subscribe((res) => {
+      console.log(res);
+      this.state = res;
+      // console.log(this.state);
     })
 
 
   }
 
-  getData(): Observable<any> {
-    return this.http.get<any>(`${this.proxyUrl}http://api.soundcloud.com/tracks/323918144?client_id=SFNLsjZPQQvfdBJkLNKMJPYhkG55YImu`);
+  getTech() {
+    this.newsApiService.getData2()
+    .pipe(map((results) => {
+      return results.articles;
+    }))
+    .subscribe((res) => {
+      this.state2 = res;
+      console.log(this.state2)
+    })
   }
 
-  onPlaySong() {
-    return SC.stream('/tracks/323918144').then(function(player){
-      player.play();
-      console.log(player)
-    });
 
-  }
 }

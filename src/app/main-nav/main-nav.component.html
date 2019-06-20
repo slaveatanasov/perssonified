@@ -8,9 +8,8 @@
       [opened]="(isHandset$ | async) === false">
     <mat-toolbar>Menu</mat-toolbar>
     <mat-nav-list>
-      <a mat-list-item href="#">Link 1</a>
-      <a mat-list-item href="#">Link 2</a>
-      <a mat-list-item href="#">Link 3</a>
+      <a mat-list-item href="#">Log In</a>
+      <a mat-list-item href="#">Register</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
@@ -23,12 +22,12 @@
         *ngIf="isHandset$ | async">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <span class="app-title">InsCloud</span> 
+      <span class="app-title">peRSSonified</span> 
       <span class="spacer"></span>
         <a href="#">Log In</a>
         <a href="#">Register</a>
     </mat-toolbar>
-    <!-- Added ng-content to project all other components here, so they can be wrapped by the nav container -->
-    <ng-content></ng-content>
+    <!-- Add ng-content to project all other components here, so they can be wrapped by the nav container.. or when using the router add the router-outlet. -->
+    <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>
