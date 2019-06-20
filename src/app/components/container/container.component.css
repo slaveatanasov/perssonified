@@ -3,3 +3,8 @@
     margin: 0 auto;
     margin-top: 25vh;
 }
+
+.player-container {
+    max-width: 35vw;
+    margin: 2rem auto;
+}
