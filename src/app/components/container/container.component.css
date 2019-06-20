@@ -1,5 +1,15 @@
+.container {
+    /* min-height: 100%;
+    width: 100%;
+    background-color: rgb(220, 223, 196);
+    padding: 3rem; */
+  }
+
 .test-card {
-    max-width: 35vw;
-    margin: 0 auto;
-    margin-top: 25vh;
+    width: 550px;
+    /* max-width: 30vw; */
+    /* margin: 0 auto; */
+    /* margin-top: 1vh;  */
+    /* width: 23%;
+    margin-bottom: 2%; */
 }

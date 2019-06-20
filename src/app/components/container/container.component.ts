@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { NewsApiService } from '../../services/news-api.service';
+import {filter, map, subscribeOn} from 'rxjs/operators';
 
 @Component({
   selector: 'app-container',
@@ -8,16 +10,41 @@ import { Observable } from 'rxjs';
   styleUrls: ['./container.component.css']
 })
 export class ContainerComponent implements OnInit {
-  soundcloudData: any;
-  constructor(private http: HttpClient) { }
+  
+  state:any[] = [];
+  state2:any[] = [];
+
+  constructor(private http: HttpClient, private newsApiService: NewsApiService) {
+  }
 
   ngOnInit() {
-    this.soundcloudData = this.getData().subscribe((data) => {
-      console.log(data);
+    this.getNews();
+    this.getTech();
+  }
+
+  getNews() {
+    this.newsApiService.getData()
+    .pipe(map(results => {
+      // console.log(results);
+      return results.articles;
+    }))
+    .subscribe((res) => {
+      console.log(res);
+      this.state = res;
+      // console.log(this.state);
     })
   }
 
-  getData(): Observable<any> {
-    return this.http.get<any>('http://api.soundcloud.com/tracks/13158665?client_id=13158665');
+  getTech() {
+    this.newsApiService.getData2()
+    .pipe(map((results) => {
+      return results.articles;
+    }))
+    .subscribe((res) => {
+      this.state2 = res;
+      console.log(this.state2)
+    })
   }
+
+
 }

@@ -27,14 +27,14 @@
 mat-toolbar a {
   display: inline-block;
   margin: 0 10px;
-  color: rgb(85, 81, 81);
+  color: rgb(26, 24, 24);
   text-decoration: none;
 }
 
 .app-title {
-  color: rgb(85, 81, 81);
+  color: rgb(26, 24, 24);
 }
 
 .mat-toolbar-color {
-  background: rgb(241, 201, 127);
+  background: rgb(245, 244, 242);
 }

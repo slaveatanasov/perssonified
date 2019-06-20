@@ -1,8 +1,33 @@
-<div>
-    <mat-card class="test-card">
-      <mat-card-title>Test</mat-card-title>
-      <mat-card-content>
-        <h1>Test</h1>
-      </mat-card-content>
-    </mat-card>
+<!-- <div class="container" fxLayout="row" fxLayoutGap fxLayoutAlign="space-around center" >
+    
+  <div fxFlex="20%">
+        <mat-card class="test-card" *ngFor="let item of state">
+            <mat-card-title fxLayout.gt-xs="row" fxLayout.xs="column">{{item.title}}</mat-card-title>
+            <mat-card-content >
+              <p>{{item.content}}</p>
+              <img src="{{item.urlToImage}}" mat-card-image>
+              <span >Author: </span><span>{{item.author}}</span>
+              <h4>{{item.publishedAt | date}}</h4>
+            </mat-card-content>
+        </mat-card>
+    </div>
+
+</div> -->
+
+<div class="container" fxLayout="row" fxLayout.xs="column" >
+
+  <div fxFlex="20%" class="test-card" *ngFor="let item of state; let i = index" > 
+    <div *ngIf="i %5 == 0" flex="auto">
+        <mat-card >
+            <mat-card-title>{{item.title}}</mat-card-title>
+            <mat-card-content>
+              <p>{{item.content}}</p>
+              <img src="{{item.urlToImage}}" mat-card-image>
+              <span>Author: </span><span>{{item.author}}</span>
+              <h4>{{item.publishedAt | date}}</h4>
+            </mat-card-content>
+          </mat-card>
+    </div>
+  </div>
+
 </div>
