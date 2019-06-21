@@ -4,16 +4,21 @@ import { Routes, RouterModule } from '@angular/router';
 import { SignUpComponent } from './auth/sign-up/sign-up.component';
 import { LogInComponent } from './auth/log-in/log-in.component';
 import { ContainerComponent } from './components/container/container.component'
+import { MainNavComponent } from './main-nav/main-nav.component'
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
     { path: '', pathMatch: 'full', component: ContainerComponent},
+    { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
     { path: 'signup', component: SignUpComponent },
     { path: 'login', component: LogInComponent }
   ];
 
 @NgModule({
     imports: [RouterModule.forRoot(routes)],
-    exports: [RouterModule]
+    exports: [RouterModule],
+    providers: [AuthGuard]
   })
 
 export class AppRoutingModule {}
