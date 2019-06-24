@@ -1,0 +1,7 @@
+.form-layout {
+  height: 95vh;
+}
+
+mat-form-field {
+  width: 300px;
+}
