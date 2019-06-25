@@ -1,15 +1,15 @@
 import {Sequelize} from 'sequelize-typescript';
-import path from 'path';
-import { Test } from './test.model';
+import {Op} from 'sequelize';
  
-export default new Sequelize({
+export const sequelize = new Sequelize({
         dialect: 'mysql',
         database: 'perssonified',
+        operatorsAliases: Op,
         username: 'root',
         password: 'admin',
         port: 3306,
-        modelPaths: [path.join(__dirname + '/*.model.ts')],
+        modelPaths: [__dirname + '/models'],
         modelMatch: (filename, member) => {
                 return filename.substring(0, filename.indexOf('.model')) === member.toLowerCase();
-              },
+        }
 });
