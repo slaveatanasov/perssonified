@@ -5,8 +5,7 @@ const cors = require('cors');
 import {sequelize} from '../src/sequelize';
 sequelize.models;
 
-import userRoutes from './routes/user';
-import authRoutes from './routes/auth';
+import router from './routes/index';
 
 const app: Application = express();
 const port = process.env.PORT || 5000;
@@ -15,12 +14,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cors());
 
-app.get('/', (req: Request, res: Response, next: NextFunction) => {
-    res.send('Express works...')
-});
-
-app.use('/api/auth', authRoutes);
-app.use('/api/user', userRoutes);
+app.use('/api', router);
 
 // async () => {
 //     await sequelize.sync({force: true})

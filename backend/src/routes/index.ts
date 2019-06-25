@@ -1,11 +1,14 @@
-import { Router } from 'express';
+import { Router, Request, Response, NextFunction } from 'express';
 
-import auth from './auth';
-import user from './user';
+import auth from './authRoutes';
+import user from './userRoutes';
 
-const routes = Router();
+const router = Router();
 
-routes.use('/auth', auth);
-routes.use('/user', user);
+router.get('/', (req: Request, res: Response, next: NextFunction) => {
+  res.send('Express works...')
+});
+router.use('/auth', auth);
+router.use('/user', user);
 
-export default routes;
+export default router;

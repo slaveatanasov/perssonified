@@ -1,5 +1,4 @@
 import { 
-    Sequelize, 
     Model,
     AutoIncrement,
     Column,
@@ -20,18 +19,26 @@ export class User extends Model<User> {
     })
     id!: number;
 
-    @Column
+    @Column({
+        type: DataType.TEXT
+    })
     email!: string;
 
-    @Column
+    @Column({
+        type: DataType.TEXT
+    })
     password!: string;
 
     @CreatedAt
-    @Column
+    @Column({
+        type: DataType.DATE
+    })
     createdAt!: Date;
 
     @UpdatedAt
-    @Column
+    @Column({
+        type: DataType.DATE
+    })
     updatedAt!: Date;
 
 }
