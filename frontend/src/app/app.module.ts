@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -33,7 +33,8 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
     MaterialModule,
     BrowserAnimationsModule,
     FlexLayoutModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: ApiKeyInterceptor, multi: true}, AuthService],
   bootstrap: [AppComponent]

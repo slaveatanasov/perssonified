@@ -1,6 +1,15 @@
 import { Request, Response, NextFunction } from 'express';
 import { User } from '../models/user.model';
 import * as bcrypt from 'bcrypt';
+import * as JWT from 'jsonwebtoken';
+
+const signToken = (user: User) => {
+    return JWT.sign({
+        id: user.id,
+        iad: Date.now,
+        expiresIn: "24h"
+    }, 'secret');
+}
 
 const findAllUsers = async (req: Request, res: Response) => {
     let users = await User.findAll();
@@ -42,18 +51,12 @@ const registerUser = async (req: Request, res: Response) => {
                                 newUser.password = hash;
                                 User.create(newUser)
                                 .then(user => {
-                                    res.send(user)
+                                    const token = signToken(user)
+                                    res.status(200).json(token);
                                 })
                                 .catch(err => console.log(err))
                             })
                         })
-                        // const user = await User.create({
-                        //     email,
-                        //     password,
-                        //     passwordConfirm,
-                        //     createdAt: Date.now()
-                        // });
-                        // res.send(user);
                     }
                 })
         }
@@ -63,9 +66,10 @@ const registerUser = async (req: Request, res: Response) => {
 }
 
 const getUserById = async (req: Request, res: Response) => {
-    let user = await User.findOne({where: {id: 8}});
+    let user = await User.findOne({where: {id: 19}});
     console.log(user)
     res.send(user);
+    console.log('auth works...')
 }
 
 module.exports = {

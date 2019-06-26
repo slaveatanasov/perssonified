@@ -1,4 +1,4 @@
-import { Router, Request, Response, NextFunction } from 'express';
+import express, { Router, Request, Response, NextFunction, Application } from 'express';
 
 import auth from './authRoutes';
 import user from './userRoutes';
