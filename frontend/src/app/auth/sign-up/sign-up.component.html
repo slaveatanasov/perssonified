@@ -1,32 +1,9 @@
-<!-- <div class="form-layout" fxLayout="row" fxLayoutAlign="center center">
-  <section class="signup-form">
-
-    <form fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="5px" #f="ngForm" (ngSubmit)="onSubmit(f)">
-      <mat-form-field>
-        <input type="email" matInput placeholder="Your email" ngModel name="email" email required #emailInput="ngModel">
-        <mat-error *ngIf="emailInput.hasError('required')">Email field must not be empty</mat-error>
-        <mat-error *ngIf="!emailInput.hasError('required')">Email is invalid</mat-error>
-      </mat-form-field>
-      <mat-form-field>
-        <input type="password" matInput placeholder="Your password" ngModel name="password" required minlength="8" #pwInput="ngModel">
-        <mat-error *ngIf="pwInput.hasError('required')">Password must be at least 8 characters</mat-error>
-      </mat-form-field>
-      <input type="password" matInput placeholder="Confirm password" ngModel name="passwordConfirm" required minlength="8" #pwConfirmInput="ngModel" validateEqual="password">
-      <mat-error *ngIf="pwInput.hasError('required')">Password must be at least 8 characters</mat-error>
-      <mat-error *ngIf="pwConfirmInput.valid || (pwConfirmInput.pristine && !f.submitted)">Password do not match</mat-error>
-    </mat-form-field>
-      <button type="submit" mat-raised-button [disabled]="f.invalid" color="primary">Submit</button>
-    </form>
-  
-  </section>
-</div> -->
-
 <div class="form-layout" fxLayout="row" fxLayoutAlign="center center">
   <section class="signup-form">
     <form fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="5px" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
       <mat-form-field>
-        <input type="email" matInput placeholder="Your email" name="email" email required formControlName="email" #emailInput>
-        <mat-error *ngIf="registerForm.controls['password'].hasError('required')">Email field is required</mat-error>
+        <input type="email" matInput placeholder="Your email" email formControlName="email" >
+        <mat-error *ngIf="registerForm.controls['email'].hasError('required')">Email field is required</mat-error>
       </mat-form-field>
       <mat-form-field>
         <input type="password" matInput placeholder="Your password" formControlName="password" >

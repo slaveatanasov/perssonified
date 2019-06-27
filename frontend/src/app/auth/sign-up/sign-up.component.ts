@@ -1,31 +1,8 @@
-// import { Component, OnInit } from '@angular/core';
-// import { NgForm } from '@angular/forms'
-// import { AuthService } from '../../services/auth.service';
-
-// @Component({
-//   selector: 'app-sign-up',
-//   templateUrl: './sign-up.component.html',
-//   styleUrls: ['./sign-up.component.css']
-// })
-// export class SignUpComponent implements OnInit {
-
-//   constructor(private authService: AuthService) { }
-
-//   ngOnInit() {
-//   }
-
-//   onSubmit(form: NgForm) {
-//     this.authService.registerUser({
-//       email: form.value.email,
-//       password: form.value.password
-//     })
-//   }
-
-// }
-
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms'
 import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-sign-up',
@@ -34,13 +11,14 @@ import { AuthService } from '../../services/auth.service';
 })
 export class SignUpComponent implements OnInit {
   registerForm: FormGroup;
+  returnUrl: string;
 
-  constructor(private authService: AuthService, fb: FormBuilder) {
+  constructor(private authService: AuthService, fb: FormBuilder, private router: Router, private snackBar: MatSnackBar) {
     this.registerForm = fb.group({
       email: ['', [Validators.required]],
       password: ['', [Validators.required, Validators.minLength(8)]],
       passwordConfirm: ['', [Validators.required]]
-    }, {validator: this.checkPasswords('password', 'passwordConfirm')})
+    }, { validator: this.checkPasswords('password', 'passwordConfirm') });
   }
 
   ngOnInit() {
@@ -49,21 +27,35 @@ export class SignUpComponent implements OnInit {
   onSubmit() {
     this.authService.registerUser({
       email: this.registerForm.value['email'],
-      password: this.registerForm.value['password']
-    })
+      password: this.registerForm.value['password'],
+      passwordConfirm: this.registerForm.value['passwordConfirm']
+    }).subscribe(() => {
+      this.router.navigate(['/login']);
+      this.snackBar.open('Successful registration.', 'Close', {
+        panelClass: 'login-snackbar',
+        duration: 3000
+      })
+    }, (error) => {
+      const errorMessage = error.error.message;
+      this.snackBar.open(errorMessage, 'Close', {
+        panelClass: 'login-snackbar',
+        duration: 5000
+      });
+    }
+    )
   }
 
   checkPasswords(password: string, confirmPassword: string) {
     return (group: FormGroup) => {
-     let passwordInput = group.controls[password],
-         passwordConfirmInput = group.controls[confirmPassword];
-     if (passwordInput.value !== passwordConfirmInput.value) {
-       return passwordConfirmInput.setErrors({notEquivalent: true})
-     }
-     else {
+      let passwordInput = group.controls[password],
+        passwordConfirmInput = group.controls[confirmPassword];
+      if (passwordInput.value !== passwordConfirmInput.value) {
+        return passwordConfirmInput.setErrors({ notEquivalent: true })
+      }
+      else {
         return passwordConfirmInput.setErrors(null);
-     }
-   }
+      }
+    }
   }
 
 }

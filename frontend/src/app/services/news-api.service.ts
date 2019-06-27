@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -21,11 +21,11 @@ export class NewsApiService {
 
   getData2() {
     return this.http.get<any>(
-      this.topHeadlinesBaseUrl + 
+      this.topHeadlinesBaseUrl +
       this.countryParam +
       this.consequentParam +
       this.techParam
-      );
+    );
   }
 
 }
