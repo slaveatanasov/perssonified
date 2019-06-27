@@ -1,6 +1,6 @@
-import {Sequelize} from 'sequelize-typescript';
-import {Op} from 'sequelize';
- 
+import { Sequelize } from 'sequelize-typescript';
+import { Op } from 'sequelize';
+
 export const sequelize = new Sequelize({
         dialect: 'mysql',
         database: 'perssonified',

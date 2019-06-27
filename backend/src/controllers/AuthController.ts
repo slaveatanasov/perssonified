@@ -5,54 +5,35 @@ import * as bcrypt from 'bcrypt';
 import * as JWT from 'jsonwebtoken';
 
 const signToken = (user: User) => {
-    return JWT.sign({
-        id: user.id,
-        iad: Date.now,
-        expiresIn: "24h"
-    }, 'secret');
+  return JWT.sign({
+    id: user.id,
+    iad: Date.now,
+    expiresIn: "24h"
+  }, 'secret');
 }
 
-// const login = async (req: Request, res: Response) => {
-//     const data = req.body;
-//     try {
-//         res.json(data)
-//         console.log(data);
-//     } catch (err) {
-//         console.log(err)
-//     }
-// }
-
 const login = async (req: Request, res: Response, done: any) => {
-    console.log(req.body);
-    try {
-        const userLogin = req.body;
-        const user = await User.findOne({where: {email: req.body.email}});
-        console.log(user);
-        if(!user) {
-          res.send('no user')
-        } else {
-          bcrypt.genSalt(10, (err, salt) => {
-            bcrypt.hash(userLogin.password, salt, (err, hash) => {
-                if (err) throw err;
-                userLogin.password = hash;
-            })
-        })  
-    
-         let passwordMatch = bcrypt.compare(userLogin.password, user.password);
-         if (!passwordMatch) {
-          return done(null, false);
-         } else {
-           done(null, user)
-           const token = signToken(userLogin)
-           res.status(200).json(token);
-         }
-        }
-      } catch (error) {
-        done(error, false);    
+  try {
+    const loginData = req.body;
+    const user = await User.findOne({ where: { email: loginData.email } });
+    if (!user) {
+      res.status(401).json({ message: 'No such email registered.' });
+    } else {
+      let passwordMatch = bcrypt.compareSync(loginData.password, user.password);
+      if (!passwordMatch) {
+        return res.status(401).json({ message: 'Password is incorrect. Try again.' });
+      } else {
+        done(null, user);
+        const token = signToken(user);
+        res.status(200).json(token);
       }
+    }
+  } catch (error) {
+    done(error, false);
+  }
 
 }
 
 module.exports = {
-    login
+  login
 }

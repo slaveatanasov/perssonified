@@ -1,4 +1,4 @@
-import { 
+import {
     Model,
     AutoIncrement,
     Column,
@@ -6,12 +6,12 @@ import {
     DataType,
     PrimaryKey,
     Table,
-    UpdatedAt 
+    UpdatedAt
 } from 'sequelize-typescript';
 
 @Table
 export class User extends Model<User> {
-    
+
     @PrimaryKey
     @AutoIncrement
     @Column({
