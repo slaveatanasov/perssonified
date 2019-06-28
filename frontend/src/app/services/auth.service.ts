@@ -35,6 +35,7 @@ export class AuthService {
 
   registerUser(authData: UserRegister) {
     this.userRegister = {
+      username: authData.username,
       email: authData.email,
       password: authData.password,
       passwordConfirm: authData.passwordConfirm

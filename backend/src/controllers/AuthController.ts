@@ -6,6 +6,7 @@ import * as JWT from 'jsonwebtoken';
 
 const signToken = (user: User) => {
   return JWT.sign({
+    username: user.username,
     id: user.id,
     iad: Date.now,
     expiresIn: "24h"

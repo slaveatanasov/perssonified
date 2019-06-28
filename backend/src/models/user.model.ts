@@ -22,6 +22,11 @@ export class User extends Model<User> {
     @Column({
         type: DataType.TEXT
     })
+    username!: string;
+
+    @Column({
+        type: DataType.TEXT
+    })
     email!: string;
 
     @Column({

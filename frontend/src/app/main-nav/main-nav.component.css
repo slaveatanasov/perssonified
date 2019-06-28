@@ -24,11 +24,34 @@
   flex: 1 1 auto;
 }
 
-mat-toolbar a {
-  display: inline-block;
-  margin: 0 10px;
-  color: rgb(26, 24, 24);
+a {
   text-decoration: none;
+}
+
+button {
+  height: 100%;
+  width: 6.25rem;
+}
+
+button:hover {
+  border-radius: 0px;
+}
+
+.toolbar-btns {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+mat-toolbar li {
+  display: inline-block;
+  /* margin: 0 10px; */
+  /* color: rgb(26, 24, 24); */
+  text-decoration: none;
+}
+
+.mat-button {
+  font-size: 1.1rem;
 }
 
 .app-title {
@@ -44,6 +67,18 @@ mat-toolbar a {
   padding-left: 6px;
 }
 
-#logout-btn {
+.custom-btn {
   cursor: pointer;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+li {
+  list-style: none;
+  height: 100%;
+  box-sizing: border-box;
 }

@@ -15,6 +15,7 @@ export class SignUpComponent implements OnInit {
 
   constructor(private authService: AuthService, fb: FormBuilder, private router: Router, private snackBar: MatSnackBar) {
     this.registerForm = fb.group({
+      username: ['', [Validators.required]],
       email: ['', [Validators.required]],
       password: ['', [Validators.required, Validators.minLength(8)]],
       passwordConfirm: ['', [Validators.required]]
@@ -26,6 +27,7 @@ export class SignUpComponent implements OnInit {
 
   onSubmit() {
     this.authService.registerUser({
+      username: this.registerForm.value['username'],
       email: this.registerForm.value['email'],
       password: this.registerForm.value['password'],
       passwordConfirm: this.registerForm.value['passwordConfirm']

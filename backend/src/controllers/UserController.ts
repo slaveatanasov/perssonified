@@ -9,10 +9,10 @@ const findAllUsers = async (req: Request, res: Response) => {
 
 const registerUser = async (req: Request, res: Response) => {
 	try {
-		const { email, password, passwordConfirm } = req.body;
+		const { username, email, password, passwordConfirm } = req.body;
 		let errors: any[] = [];
 
-		if (!email || !password || !passwordConfirm) {
+		if ( !username || !email || !password || !passwordConfirm) {
 			errors.push({ message: "Please fill in all fields." });
 		}
 		if (password !== passwordConfirm) {
@@ -31,6 +31,7 @@ const registerUser = async (req: Request, res: Response) => {
 						res.send(errors);
 					} else {
 						const newUser = await {
+							username,
 							email,
 							password,
 							createdAt: Date.now()

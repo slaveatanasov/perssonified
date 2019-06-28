@@ -2,6 +2,14 @@
   height: 95vh;
 }
 
+.signup-form {
+  padding-top: 10vh;
+}
+
 mat-form-field {
-  width: 300px;
+  width: 350px;
+}
+
+mat-card {
+  width: 450px;
 }
