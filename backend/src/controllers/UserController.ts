@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { User } from '../models/user.model';
+import User  from '../models/user.model';
 import * as bcrypt from 'bcrypt';
 
 const findAllUsers = async (req: Request, res: Response) => {
@@ -53,6 +53,10 @@ const registerUser = async (req: Request, res: Response) => {
 	} catch (err) {
 		console.log(err)
 	}
+}
+
+const updateUser = async (req: Request, res: Response) => {
+
 }
 
 const getUserById = async (req: Request, res: Response) => {

@@ -6,11 +6,17 @@ import {
     DataType,
     PrimaryKey,
     Table,
-    UpdatedAt
+    UpdatedAt,
+    ForeignKey,
+    BelongsTo,
+    HasMany,
+    HasOne
 } from 'sequelize-typescript';
 
+import TFA from './tfa.model'
+
 @Table
-export class User extends Model<User> {
+export default class User extends Model<User> {
 
     @PrimaryKey
     @AutoIncrement
@@ -45,5 +51,8 @@ export class User extends Model<User> {
         type: DataType.DATE
     })
     updatedAt!: Date;
+
+    @HasOne(() => TFA)
+    tfa!:TFA;
 
 }

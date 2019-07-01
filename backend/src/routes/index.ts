@@ -2,7 +2,7 @@ import { Router, Request, Response, NextFunction } from 'express';
 
 import auth from './authRoutes';
 import user from './userRoutes';
-import tfa from './tfaRoute';
+import tfa from './tfaRoutes';
 
 const router = Router();
 
