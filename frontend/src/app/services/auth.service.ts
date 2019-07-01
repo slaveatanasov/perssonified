@@ -23,7 +23,7 @@ export class AuthService {
   constructor(private router: Router, private http: HttpClient, private snackBar: MatSnackBar) { }
 
   getToken() {
-    return localStorage.getItem('token');
+    return localStorage.getItem('jwtToken');
   }
 
   getCurrentUser() {
@@ -50,7 +50,7 @@ export class AuthService {
     };
     return this.http.post<string>('http://localhost:5000/api/auth/login', this.userLogin)
       .pipe(tap(token => {
-        localStorage.setItem('token', token)
+        localStorage.setItem('jwtToken', token)
         this.authChange.next(true);
       }));
   }
@@ -58,7 +58,7 @@ export class AuthService {
   logout() {
     this.userLogin = null;
     this.authChange.next(false);
-    localStorage.removeItem('token');
+    localStorage.removeItem('jwtToken');
     this.router.navigate(['/login']);
     this.snackBar.open('You are logged out.', 'Close', {
       panelClass: 'login-snackbar',
@@ -67,6 +67,6 @@ export class AuthService {
   }
 
   isAuth(): boolean {
-    return localStorage.getItem('token') !== null;
+    return localStorage.getItem('jwtToken') !== null;
   }
 }
