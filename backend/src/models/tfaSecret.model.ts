@@ -2,20 +2,18 @@ import {
     Model,
     AutoIncrement,
     Column,
-    CreatedAt,
     DataType,
     PrimaryKey,
     Table,
-    UpdatedAt,
     ForeignKey,
     BelongsTo,
-    HasMany,
-    HasOne} from "sequelize-typescript";
+} from "sequelize-typescript";
 
 import TFA from './tfa.model'
 
 @Table
 export default class TfaSecret extends Model<TfaSecret> {
+    
     @PrimaryKey
     @AutoIncrement
     @Column({

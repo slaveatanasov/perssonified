@@ -67,7 +67,7 @@ const tfaVerify = async (req: Request, res: Response) => {
   let isVerified = speakeasy.totp.verify({
     secret: userTFA.tempSecret,
     encoding: 'base32',
-    token: '426720'
+    token: '064338'
     // token: req.body.token
   });
 

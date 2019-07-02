@@ -7,9 +7,6 @@ import {
     PrimaryKey,
     Table,
     UpdatedAt,
-    ForeignKey,
-    BelongsTo,
-    HasMany,
     HasOne
 } from 'sequelize-typescript';
 

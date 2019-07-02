@@ -1,6 +1,7 @@
 import express, { Application } from 'express';
 import * as bodyParser from 'body-parser';
 const cors = require('cors');
+
 import { passportHandler } from './passport';
 
 import { sequelize } from '../src/sequelize';

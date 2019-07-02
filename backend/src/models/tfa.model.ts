@@ -2,11 +2,9 @@ import {
     Model,
     AutoIncrement,
     Column,
-    CreatedAt,
     DataType,
     PrimaryKey,
     Table,
-    UpdatedAt,
     ForeignKey,
     BelongsTo,
     HasOne
