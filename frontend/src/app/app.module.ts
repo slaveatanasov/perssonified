@@ -17,6 +17,7 @@ import { ContainerComponent } from './components/container/container.component';
 import { SignUpComponent } from './auth/sign-up/sign-up.component';
 import { LogInComponent } from './auth/log-in/log-in.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { TfaComponent } from './auth/tfa/tfa.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
     SignUpComponent,
     LogInComponent,
     DashboardComponent,
+    TfaComponent,
   ],
   imports: [
     BrowserModule,

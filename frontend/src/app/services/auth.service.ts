@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { tap, map } from 'rxjs/operators';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { MatSnackBar } from '@angular/material';
 
@@ -25,6 +25,8 @@ export class AuthService {
   getToken() {
     return localStorage.getItem('jwtToken');
   }
+
+  //Get current user info from request from backend not from token....
 
   getCurrentUser() {
     const token = this.getToken()
@@ -49,10 +51,13 @@ export class AuthService {
       password: authData.password,
     };
     return this.http.post<string>('http://localhost:5000/api/auth/login', this.userLogin)
-      .pipe(tap(token => {
+      .pipe(map(token => {
         localStorage.setItem('jwtToken', token)
         this.authChange.next(true);
-      }));
+        console.log('before const decodedToken')
+        const decodedToken = this.helper.decodeToken(token);
+        console.log(decodedToken);
+      }))
   }
 
   logout() {
@@ -66,7 +71,25 @@ export class AuthService {
     })
   }
 
-  isAuth(): boolean {
-    return localStorage.getItem('jwtToken') !== null;
+  isJwtAuth(): boolean {
+
+    if (localStorage.getItem('jwtToken') !== null) {
+      return true
+    }
+    // return localStorage.getItem('jwtToken') !== null
   }
+
+  isTfaEnabled(): boolean {
+    const token = localStorage.getItem('jwtToken')
+    const decodedToken = this.helper.decodeToken(token);
+    console.log(decodedToken)
+    return decodedToken.tfaEnabled !== 0
+  }
+
+  isTfaAuth(): boolean {
+    // implement.. temporary false is hardcoded
+    return true
+
+  }
+
 }

@@ -6,11 +6,8 @@ import {
     DataType,
     PrimaryKey,
     Table,
-    UpdatedAt,
-    HasOne
+    UpdatedAt
 } from 'sequelize-typescript';
-
-import TFA from './tfa.model'
 
 @Table
 export default class User extends Model<User> {
@@ -37,6 +34,21 @@ export default class User extends Model<User> {
     })
     password!: string;
 
+    @Column({
+        type: DataType.TINYINT
+    })
+    tfaEnabled!: boolean;
+
+    @Column({
+        type: DataType.TEXT
+    })
+    twoFactorSecret!: string;
+
+    @Column({
+        type: DataType.TEXT
+    })
+    twoFactorTempSecret!: string;
+
     @CreatedAt
     @Column({
         type: DataType.DATE
@@ -48,8 +60,5 @@ export default class User extends Model<User> {
         type: DataType.DATE
     })
     updatedAt!: Date;
-
-    @HasOne(() => TFA)
-    tfa!:TFA;
 
 }
