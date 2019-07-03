@@ -13,7 +13,7 @@ const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent, canActivate: [JwtAuthGuard] },
   { path: 'signup', component: SignUpComponent },
   { path: 'login', component: LogInComponent },
-  { path: 'tfa', component: TfaComponent, canActivate: [JwtAuthGuard] }
+  { path: 'tfa-challenge', component: TfaComponent }
 ];
 
 @NgModule({

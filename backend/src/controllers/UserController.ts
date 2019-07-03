@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
-import User  from '../models/user.model';
 import * as bcrypt from 'bcrypt';
+
+import User from '../models/user.model';
 
 const findAllUsers = async (req: Request, res: Response) => {
 	let users = await User.findAll();
@@ -12,7 +13,7 @@ const registerUser = async (req: Request, res: Response) => {
 		const { username, email, password, passwordConfirm } = req.body;
 		let errors: any[] = [];
 
-		if ( !username || !email || !password || !passwordConfirm) {
+		if (!username || !email || !password || !passwordConfirm) {
 			errors.push({ message: "Please fill in all fields." });
 		}
 		if (password !== passwordConfirm) {
@@ -56,16 +57,35 @@ const registerUser = async (req: Request, res: Response) => {
 }
 
 const updateUser = async (req: Request, res: Response) => {
-
+	if (req.params.id) {
+		User.update({}, {where: {id: req.params.id}});
+		console.log('User updated.')
+	} else {
+		console.log('User was not updated.')
+	}
 }
 
 const getUserById = async (req: Request, res: Response) => {
-	let user = await User.findOne({ where: { id: req.params.id } });
-	res.send(user);
+	if (req.params.id) {
+		let user = await User.findOne({ where: { id: req.params.id } });
+		res.send(user);
+	} else {
+		console.log('Unsuccessful fetching of user.')
+	}
+}
+
+const getUserByEmail = async (req: Request, res: Response) => {
+	if (req.params.email) {
+		let user = await User.findOne({ where: { email: req.params.email } });
+		res.send(user);
+	} else {
+		console.log('Unsuccessful fetching of user.')
+	}
 }
 
 module.exports = {
 	findAllUsers,
 	registerUser,
-	getUserById
+	getUserById,
+	getUserByEmail
 }

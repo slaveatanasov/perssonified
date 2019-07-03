@@ -45,18 +45,31 @@ export class AuthService {
     return this.http.post<any>('http://localhost:5000/api/auth/register', this.userRegister);
   }
 
+  tfaLogin(data: any) {
+    return this.http.post<string>('http://localhost:5000/api/auth/tfalogin', data);
+  }
+
   loginUser(authData: UserLogin) {
+    console.log(authData);
     this.userLogin = {
       email: authData.email,
       password: authData.password,
     };
-    return this.http.post<string>('http://localhost:5000/api/auth/login', this.userLogin)
-      .pipe(map(token => {
-        localStorage.setItem('jwtToken', token)
-        this.authChange.next(true);
-        console.log('before const decodedToken')
-        const decodedToken = this.helper.decodeToken(token);
-        console.log(decodedToken);
+    return this.http.post<any>('http://localhost:5000/api/auth/login', this.userLogin)
+      .pipe(map(response => {
+        if (response.tfaRedirect) {
+          this.authChange.next(false);
+          return response
+          console.log("response is tfaRedirect")
+
+          this.router.navigateByUrl(`/tfa-challenge?tempId=${response.tempId}&userId=${response.userId}`);
+        } else {
+          console.log('in no TFA else')
+          let token = response.accessToken;
+          console.log(token);
+          localStorage.setItem('jwtToken', token)
+          this.authChange.next(true);
+        }
       }))
   }
 
@@ -65,6 +78,7 @@ export class AuthService {
     this.authChange.next(false);
     localStorage.removeItem('jwtToken');
     this.router.navigate(['/login']);
+
     this.snackBar.open('You are logged out.', 'Close', {
       panelClass: 'login-snackbar',
       duration: 3000
@@ -72,24 +86,9 @@ export class AuthService {
   }
 
   isJwtAuth(): boolean {
-
     if (localStorage.getItem('jwtToken') !== null) {
       return true
     }
-    // return localStorage.getItem('jwtToken') !== null
-  }
-
-  isTfaEnabled(): boolean {
-    const token = localStorage.getItem('jwtToken')
-    const decodedToken = this.helper.decodeToken(token);
-    console.log(decodedToken)
-    return decodedToken.tfaEnabled !== 0
-  }
-
-  isTfaAuth(): boolean {
-    // implement.. temporary false is hardcoded
-    return true
-
   }
 
 }

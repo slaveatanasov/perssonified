@@ -1,13 +1,11 @@
 import { Request, Response, NextFunction } from 'express';
-
-import User from '../models/user.model';
-
 import * as JWT from 'jsonwebtoken';
 const speakeasy = require('speakeasy');
 const QRCode = require('qrcode');
 
+import User from '../models/user.model';
+
 const tfaCreate = async (req: Request, res: Response) => {
-  console.log(`DEBUG: Received TFA setup request`);
   const jwtToken: any = await req.headers.authorization;
   const decodedJwt: any = JWT.verify(jwtToken, 'secret');
 
@@ -34,55 +32,51 @@ const tfaCreate = async (req: Request, res: Response) => {
       dataURL,
       tfaURL: secret.otpauth_url
     });
-
   });
-
 }
 
 const tfaFetch = async (req: Request, res: Response) => {
-  console.log(`DEBUG: Received FETCH TFA request`);
   const jwtToken: any = await req.headers.authorization;
   const decodedJwt: any = JWT.verify(jwtToken, 'secret');
 
-  User.findOne({ where: { id: decodedJwt.id }})
+  await User.findOne({ where: { id: decodedJwt.id }})
     .then(result => res.json(result ? result : null));
-
 }
 
 const tfaDelete = async (req: Request, res: Response) => {
-  // Implement
+  const jwtToken: any = await req.headers.authorization;
+  const decodedJwt: any = JWT.verify(jwtToken, 'secret');
+  await User.update({tfaEnabled: false, twoFactorTempSecret: null, twoFactorSecret: null }, {where: {id: decodedJwt.id}})
+    .then(updatedUser => console.log(updatedUser));
+  res.send('TFA disabled.')
 }
 
 const tfaVerify = async (req: Request, res: Response) => {
-  console.log(`DEBUG: Received TFA Verify request`);
   const jwtToken: any = await req.headers.authorization;
   const decodedJwt: any = JWT.verify(jwtToken, 'secret')
 
   const user = await User.findOne({where: {id: decodedJwt.id}});
+  let tempSecret = user!.twoFactorTempSecret;
 
-  //The token here is the one the user enters (a 6 digit code).
   let isVerified = speakeasy.totp.verify({
-    secret: user!.twoFactorTempSecret,
+    secret: tempSecret,
     encoding: 'base32',
     token: req.body.token
   });
 
   if (isVerified) {
-    console.log(`DEBUG: TFA is verified to be enabled`);
-    await User.update({ twoFactorSecret: user!.twoFactorTempSecret, tfaEnabled: true }, { where: { id: decodedJwt.id } });
+    await User.update({ tfaEnabled: true, twoFactorSecret: tempSecret, twoFactorTempSecret: null }, { where: { id: decodedJwt.id } });
 
     return res.send({
       "status": 200,
       "message": "Two-factor Auth is enabled successfully"
     });
-
   }
-  console.log(`ERROR: TFA is verified to be wrong`);
+
   return res.send({
     "status": 403,
     "message": "Invalid Auth Code, verification failed. Please verify the system Date and Time"
   });
-
 }
 
 module.exports = {

@@ -29,22 +29,23 @@ export class LogInComponent implements OnInit {
       email: this.loginForm.value['email'],
       password: this.loginForm.value['password']
     })
-    .subscribe(() => {
-      const tfaEnabled = this.authService.isTfaEnabled();
-      if (tfaEnabled) {
-        this.router.navigate(['/tfa'])
-        this.snackBar.open('Complete 2 step verification.', 'Close', {
-          panelClass: 'login-snackbar',
-          duration: 3000
-        })
-      } else {
-        this.router.navigate(['/dashboard'])
-        this.snackBar.open('Successful login.', 'Close', {
-          panelClass: 'login-snackbar',
-          duration: 3000
-        })
-      }
-    }, (error) => {
+    .subscribe((response) => {
+      console.log('in login component')
+       console.log(response);
+       if (response.tfaRedirect !== undefined && response.tfaRedirect === true) {
+         console.log('in login componen in IF that redirects to tfa challengs')
+        this.router.navigateByUrl(`/tfa-challenge?tempId=${response.tempId}&userId=${response.userId}`);
+       } else {
+         if (this.authService.authChange) {
+          console.log('in login component which redirects to dashboard')
+          this.router.navigate(['/dashboard'])
+          this.snackBar.open('Successful login.', 'Close', {
+            panelClass: 'login-snackbar',
+            duration: 3000
+          })
+         }
+       }
+       }, (error) => {
       const errorMessage = error.error.message;
       this.snackBar.open(errorMessage, 'Close', {
         panelClass: 'login-snackbar',
