@@ -23,10 +23,11 @@ const signToken = (user: User) => {
 
 const tfaLogin = async (req: Request, res: Response) => {
   const { token, tempId, userId } = req.body;
-
-  if (tempId === tfaMap.tempId && userId === tfaMap.userId) {
+  console.log(tfaMap);
+  console.log(req.body);
+  
+  if (tempId == tfaMap.tempId && userId == tfaMap.userId) {
     const user = await User.findOne({ where: { id: userId } });
-
     let isVerified = speakeasy.totp.verify({
       secret: user!.twoFactorSecret,
       encoding: 'base32',
@@ -39,9 +40,9 @@ const tfaLogin = async (req: Request, res: Response) => {
       tfaMap.userId = 0;
 
 
-      return res.status(200).send({
-        "message": "Successful 2 step verification login.",
-        "jwtToken": jwtToken
+      res.status(200).send({
+        message: "Successful 2 step verification login.",
+        accessToken: jwtToken
       });
     }
   } else {
@@ -68,6 +69,7 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
             let tempId = uuidv4();
             tfaMap.tempId = tempId;
             tfaMap.userId = user.id;
+            console.log(tfaMap);
 
             res.send({
               tempId: tempId,
