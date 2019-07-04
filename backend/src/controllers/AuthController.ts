@@ -46,10 +46,33 @@ const signToken = (user: User) => {
 const tfaLogin = async (req: Request, res: Response) => {
   // req.body kje ima tempToken, userId, TFA Token
   // ako e ok pusti mu access token
-  console.log(req.params);
-  
-  // let token = req.body.token;
-  // let user = await User.findOne({ where: { email } });
+  console.log(req.rawHeaders)
+
+  const jwtToken: any = await req.headers.authorization;
+  const decodedJwt: any = JWT.verify(jwtToken, 'secret');
+
+
+  console.log("came to here....");
+  // console.log(req.params);
+  // console.log(req.body);
+
+  let token = req.body.token;
+  let user = await User.findOne({ where: { id: decodedJwt.id } });
+
+  let isVerified = speakeasy.totp.verify({
+    secret: user!.twoFactorSecret,
+    encoding: 'base32',
+    token: token
+  });
+  if (isVerified) {
+    console.log(`DEBUG: Login with TFA is verified to be successful`);
+    return res.send({
+      "status": 200,
+      "message": "success"
+    });
+  }
+
+
 
 }
 
@@ -57,7 +80,7 @@ const tfaLogin = async (req: Request, res: Response) => {
 //   try {
 //     console.log(`DEBUG: Received login request`);
 //     if (req.body) {
-      
+
 //       if(!req.body.tfa || !req.body.tfa.secret) {
 
 //         const loginData = req.body;
@@ -67,7 +90,7 @@ const tfaLogin = async (req: Request, res: Response) => {
 //           res.status(401).json({ message: 'No such email registered.' });
 //         } else {
 //           let passwordMatch = bcrypt.compareSync(loginData.password, user.password);
-          
+
 //           if (!passwordMatch) {
 //             return res.status(401).json({ message: 'Password is incorrect. Try again.' });
 //           } else {
@@ -119,7 +142,7 @@ const tfaLogin = async (req: Request, res: Response) => {
 
 
 
-      
+
 //     }
 
 //   } catch (error) {
@@ -168,12 +191,30 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
             //     "message": "success"
             // });
             // }
+
+            // res.send({
+            //   tfaRedirect: true,
+            //   userId: user.id,
+            //   tfaSecret: user.twoFactorSecret
+            // })
+            // const data = {
+            //   userId: user.id,
+            //   tfaSecret: user.twoFactorSecret,
+            //   username: user.username
+            // }
+            // res.redirect(`/tfalogin`);
+
+            // Do the same as in first code block..... and do the rest in tfalogin
+            if (await bcrypt.compareSync(password, user.password)) {
+              console.log('redirect from first login to tfa login...')
+              const jwtToken = signToken(user);
+              res.status(200).json(jwtToken);
+              console.log(`DEBUG: Login with TFA next`);
+            } else {
+              res.send('nto succesfull')
+            }
+          
             
-            res.send({
-              tfaRedirect: true,
-              userId: user.id,
-              tfaSecret: user.twoFactorSecret
-            })
 
 
           }
