@@ -1,11 +1,20 @@
 import { Request, Response, NextFunction } from 'express';
 import * as bcrypt from 'bcrypt';
+import * as JWT from 'jsonwebtoken';
 
 import User from '../models/user.model';
 
 const findAllUsers = async (req: Request, res: Response) => {
 	let users = await User.findAll();
 	res.send(users);
+}
+
+const getCurrentUser = async (req: Request, res: Response) => {
+	console.log(req.headers);
+	const jwtToken: any = await req.headers.authorization;
+	const decodedJwt: any = JWT.verify(jwtToken, 'secret');
+	 await User.findOne({ where: { id: decodedJwt.id } })
+	 	.then(user => res.send(user));
 }
 
 const registerUser = async (req: Request, res: Response) => {
@@ -87,5 +96,6 @@ module.exports = {
 	findAllUsers,
 	registerUser,
 	getUserById,
-	getUserByEmail
+	getUserByEmail,
+	getCurrentUser
 }

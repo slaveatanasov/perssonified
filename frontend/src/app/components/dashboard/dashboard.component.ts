@@ -7,7 +7,7 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  currentUser: any;
+  // currentUser: any;
   constructor(private authService: AuthService) { }
 
   ngOnInit() {

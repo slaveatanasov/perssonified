@@ -17,7 +17,7 @@ import { ContainerComponent } from './components/container/container.component';
 import { SignUpComponent } from './auth/sign-up/sign-up.component';
 import { LogInComponent } from './auth/log-in/log-in.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { TfaComponent } from './auth/tfa/tfa.component';
+import { SettingsComponent } from './components/settings/settings.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +27,7 @@ import { TfaComponent } from './auth/tfa/tfa.component';
     SignUpComponent,
     LogInComponent,
     DashboardComponent,
-    TfaComponent,
+    SettingsComponent,
   ],
   imports: [
     BrowserModule,
@@ -43,7 +43,7 @@ import { TfaComponent } from './auth/tfa/tfa.component';
         tokenGetter: () => {
           return localStorage.getItem('token');
         },
-        whitelistedDomains: ['http://localhost:4200/dashboard'],
+        whitelistedDomains: ['http://localhost:4200/dashboard', 'http://localhost:4200/settings'],
         blacklistedRoutes: ['http://localhost:4200/register', 'http://localhost:4200/login']
       }
     })
