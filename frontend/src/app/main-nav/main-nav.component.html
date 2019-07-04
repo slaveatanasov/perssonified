@@ -19,6 +19,12 @@
         </a>
       </mat-list-item>
       <mat-list-item *ngIf="isAuth">
+          <a routerLink="/settings" (click)="drawer.close()">
+            <mat-icon>input</mat-icon>
+            <span class="nav-caption">Settings</span>
+          </a>
+        </mat-list-item>
+      <mat-list-item *ngIf="isAuth">
         <button mat-icon-button (click)="drawer.close() && onLogout()">
           <mat-icon>eject</mat-icon>
           <span class="custom-btn" class="nav-caption">Logout</span>
@@ -37,7 +43,7 @@
       <div fxHide.xs class="toolbar-btns">
         <mat-menu #menu="matMenu" xPosition="before">
           <button mat-menu-item routerLink="/dashboard">Dashboard</button>
-          <button mat-menu-item>Settings</button>
+          <button mat-menu-item routerLink="/settings">Settings</button>
         </mat-menu>
         <ul>
           <li *ngIf="isAuth">

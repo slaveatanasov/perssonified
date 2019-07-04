@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms'
 import { AuthService } from '../../services/auth.service';
 import { MatSnackBar } from '@angular/material';
-import { tap } from 'rxjs/operators';
 
 import { Router } from '@angular/router';
 
@@ -12,12 +11,18 @@ import { Router } from '@angular/router';
   styleUrls: ['./log-in.component.css']
 })
 export class LogInComponent implements OnInit {
+  tfaFlag: boolean = false;
+
   loginForm: FormGroup;
+  tfaForm: FormGroup
 
   constructor(private authService: AuthService, fb: FormBuilder, private router: Router, private snackBar: MatSnackBar) {
     this.loginForm = fb.group({
       email: ['', [Validators.required]],
       password: ['', [Validators.required]]
+    });
+    this.tfaForm = fb.group({
+      token: ['', [Validators.required]]
     });
   }
 
@@ -27,31 +32,33 @@ export class LogInComponent implements OnInit {
   onSubmit() {
     this.authService.loginUser({
       email: this.loginForm.value['email'],
-      password: this.loginForm.value['password']
+      password: this.loginForm.value['password'],
+      tfaToken: this.tfaForm.value['token']
     })
-    .subscribe(() => {
-      const tfaEnabled = this.authService.isTfaEnabled();
-      if (tfaEnabled) {
-        this.router.navigate(['/tfa'])
-        this.snackBar.open('Complete 2 step verification.', 'Close', {
+      .subscribe((response) => {
+        if (response.status == 206) {
+          this.tfaFlag = true;
+          this.snackBar.open('Complete 2 step verification.', 'Close', {
+            panelClass: 'login-snackbar',
+            duration: 3000
+          });
+        } else if (response.status === 200) {
+          if (this.authService.authChange) {
+            this.router.navigate(['/dashboard'])
+            this.snackBar.open('Successful login.', 'Close', {
+              panelClass: 'login-snackbar',
+              duration: 3000
+            })
+          }
+        }
+      }, (error) => {
+        const errorMessage = error.error.message;
+        this.snackBar.open(errorMessage, 'Close', {
           panelClass: 'login-snackbar',
-          duration: 3000
-        })
-      } else {
-        this.router.navigate(['/dashboard'])
-        this.snackBar.open('Successful login.', 'Close', {
-          panelClass: 'login-snackbar',
-          duration: 3000
-        })
+          duration: 5000
+        });
       }
-    }, (error) => {
-      const errorMessage = error.error.message;
-      this.snackBar.open(errorMessage, 'Close', {
-        panelClass: 'login-snackbar',
-        duration: 5000
-      });
-    }
-    )
+      )
   }
 
 }

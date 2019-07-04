@@ -7,6 +7,5 @@ const router = Router();
 
 router.post('/register', userController.registerUser);
 router.post('/login', authController.login);
-router.post('/tfalogin', authController.tfaLogin);
 
 export default router;
