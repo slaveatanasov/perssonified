@@ -12,19 +12,19 @@ const tfaCreate = async (req: Request, res: Response) => {
   const secret = await speakeasy.generateSecret({
     length: 10,
     name: decodedJwt.username,
-    issuer: 'Slave'
+    issuer: decodedJwt.username
   });
 
   let url = await speakeasy.otpauthURL({
     secret: secret.base32,
     label: decodedJwt.username,
-    issuer: 'Slave',
+    issuer: decodedJwt.username,
     encoding: 'base32'
   });
 
   QRCode.toDataURL(url, (err: any, dataURL: any) => {
 
-    User.update({twoFactorTempSecret: secret.base32}, {where: {id: decodedJwt.id}});
+    User.update({ twoFactorTempSecret: secret.base32 }, { where: { id: decodedJwt.id } });
 
     return res.json({
       message: 'TFA Auth needs to be verified',
@@ -39,29 +39,31 @@ const tfaFetch = async (req: Request, res: Response) => {
   const jwtToken: any = await req.headers.authorization;
   const decodedJwt: any = JWT.verify(jwtToken, 'secret');
 
-  await User.findOne({ where: { id: decodedJwt.id }})
+  await User.findOne({ where: { id: decodedJwt.id } })
     .then(result => res.json(result ? result : null));
 }
 
 const tfaDelete = async (req: Request, res: Response) => {
   const jwtToken: any = await req.headers.authorization;
   const decodedJwt: any = JWT.verify(jwtToken, 'secret');
-  await User.update({tfaEnabled: false, twoFactorTempSecret: null, twoFactorSecret: null }, {where: {id: decodedJwt.id}})
+  await User.update({ tfaEnabled: false, twoFactorTempSecret: null, twoFactorSecret: null }, { where: { id: decodedJwt.id } })
     .then(updatedUser => console.log(updatedUser));
-  res.send('TFA disabled.')
+  res.send({
+    "message": "Two factor authentication disabled successfully."
+  })
 }
 
 const tfaVerify = async (req: Request, res: Response) => {
   const jwtToken: any = await req.headers.authorization;
   const decodedJwt: any = JWT.verify(jwtToken, 'secret')
 
-  const user = await User.findOne({where: {id: decodedJwt.id}});
+  const user = await User.findOne({ where: { id: decodedJwt.id } });
   let tempSecret = user!.twoFactorTempSecret;
 
   let isVerified = speakeasy.totp.verify({
     secret: tempSecret,
     encoding: 'base32',
-    token: req.body.token
+    token: req.body.token.authCode
   });
 
   if (isVerified) {

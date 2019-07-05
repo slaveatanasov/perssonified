@@ -6,9 +6,10 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MaterialModule } from './material.module';
-import { JwtModule } from '@auth0/angular-jwt';
 
 import { ApiKeyInterceptor } from './services/api-key.interceptor';
+import { JwtInterceptor } from './services/jwt.interceptor';
+
 import { AuthService } from './services/auth.service';
 
 import { AppComponent } from './app.component';
@@ -37,18 +38,9 @@ import { SettingsComponent } from './components/settings/settings.component';
     BrowserAnimationsModule,
     FlexLayoutModule,
     FormsModule,
-    ReactiveFormsModule,
-    JwtModule.forRoot({
-      config: {
-        tokenGetter: () => {
-          return localStorage.getItem('token');
-        },
-        whitelistedDomains: ['http://localhost:4200/dashboard', 'http://localhost:4200/settings'],
-        blacklistedRoutes: ['http://localhost:4200/register', 'http://localhost:4200/login']
-      }
-    })
+    ReactiveFormsModule
   ],
-  providers: [{ provide: HTTP_INTERCEPTORS, useClass: ApiKeyInterceptor, multi: true }, AuthService],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: ApiKeyInterceptor, multi: true }, { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -5,7 +5,6 @@ import { Subject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material';
 
-
 import { UserRegister, UserLogin } from '../models/auth/user.model';
 
 
@@ -24,10 +23,6 @@ export class AuthService {
 
   getJwtToken() {
     return localStorage.getItem('jwtToken');
-  }
-
-  getCurrentUser() {
-    //Get current user info from request from backend not from token...
   }
 
   registerUser(data: UserRegister) {
