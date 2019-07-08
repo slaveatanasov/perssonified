@@ -19,6 +19,7 @@ import { SignUpComponent } from './auth/sign-up/sign-up.component';
 import { LogInComponent } from './auth/log-in/log-in.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { SettingsComponent } from './components/settings/settings.component';
+import { TfaSettingsComponent } from './components/tfa-settings/tfa-settings.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { SettingsComponent } from './components/settings/settings.component';
     LogInComponent,
     DashboardComponent,
     SettingsComponent,
+    TfaSettingsComponent,
   ],
   imports: [
     BrowserModule,

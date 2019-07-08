@@ -1,0 +1,8 @@
+.settings {
+    padding-top: 10vh;
+}
+
+mat-card {
+    width: 35vw;
+    padding: 2rem;
+}

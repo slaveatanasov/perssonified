@@ -1,4 +1,4 @@
-<section *ngIf="currentUser" class="tfa-form" fxLayout="column" fxLayoutAlign="center center" >
+<!-- <section *ngIf="currentUser" class="tfa-form" fxLayout="column" fxLayoutAlign="center center" >
   <div *ngIf="!currentUser.tfaEnabled">
       <mat-card *ngIf='tfaSetup'>
           <mat-card-title fxLayoutAlign="center center">Setup TFA</mat-card-title>
@@ -24,4 +24,38 @@
     </mat-card>
   </div>
 
-  </section>
+  </section> -->
+
+  <div class="settings" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
+    <mat-card>
+        <mat-card-title fxLayoutAlign="center center">Settings</mat-card-title>
+        <mat-accordion>
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    User account
+                  </mat-panel-title>
+                  <mat-panel-description fxLayoutAlign="end">
+                    Edit account info
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+                <p>CONTENT GOES HERE...</p>
+                <mat-action-row>
+                    <button mat-button>Save</button>
+                  </mat-action-row>
+            </mat-expansion-panel>
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Two-factor authentication 
+                  </mat-panel-title>
+                  <mat-panel-description fxLayoutAlign="end">
+                    Enable/disable TFA
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+                <app-tfa-settings></app-tfa-settings>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </mat-card>
+  </div>
+  
