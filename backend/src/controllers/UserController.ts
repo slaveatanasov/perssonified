@@ -10,7 +10,7 @@ const findAllUsers = async (req: Request, res: Response) => {
 }
 
 const getCurrentUser = async (req: Request, res: Response) => {
-	console.log(req.headers);
+	console.log(req.headers.authorization);
 	const jwtToken: any = await req.headers.authorization;
 	const decodedJwt: any = JWT.verify(jwtToken, 'secret');
 	 await User.findOne({ where: { id: decodedJwt.id } })
@@ -37,8 +37,10 @@ const registerUser = async (req: Request, res: Response) => {
 			await User.findOne({ where: { email: email } })
 				.then(async user => {
 					if (user) {
-						errors.push({ message: "Email is already registered." });
-						res.send(errors);
+						// errors.push({ message: "Email is already registered." });
+						res.send({
+							errMessage: "Email is already registered."
+						});
 					} else {
 						const newUser = await {
 							username,

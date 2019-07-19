@@ -31,12 +31,21 @@ export class SignUpComponent implements OnInit {
       email: this.registerForm.value['email'],
       password: this.registerForm.value['password'],
       passwordConfirm: this.registerForm.value['passwordConfirm']
-    }).subscribe(() => {
-      this.router.navigate(['/login']);
-      this.snackBar.open('Successful registration.', 'Close', {
-        panelClass: 'login-snackbar',
-        duration: 3000
-      })
+    }).subscribe((res) => {
+      if (res.errMessage) {
+        const errorMessage = res.errMessage;
+        this.snackBar.open(errorMessage, 'Close', {
+          panelClass: 'login-snackbar',
+          duration: 3000
+        })
+      } else if (!res.errMessage) {
+        this.router.navigate(['/login']);
+        this.snackBar.open('Successful registration.', 'Close', {
+          panelClass: 'login-snackbar',
+          duration: 3000
+        });
+      }
+
     }, (error) => {
       const errorMessage = error.error.message;
       this.snackBar.open(errorMessage, 'Close', {

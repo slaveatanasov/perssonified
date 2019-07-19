@@ -9,6 +9,7 @@ import { MaterialModule } from './material.module';
 import { JwtModule } from '@auth0/angular-jwt';
 
 import { ApiKeyInterceptor } from './services/api-key.interceptor';
+// import { JwtTokenInterceptor } from './services/jwtToken.interceptor';
 import { AuthService } from './services/auth.service';
 
 import { AppComponent } from './app.component';
@@ -41,7 +42,7 @@ import { SettingsComponent } from './components/settings/settings.component';
     JwtModule.forRoot({
       config: {
         tokenGetter: () => {
-          return localStorage.getItem('token');
+          return localStorage.getItem('jwtToken');
         },
         whitelistedDomains: ['http://localhost:4200/dashboard', 'http://localhost:4200/settings'],
         blacklistedRoutes: ['http://localhost:4200/register', 'http://localhost:4200/login']

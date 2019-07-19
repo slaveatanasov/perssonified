@@ -28,6 +28,9 @@ export class AuthService {
 
   getCurrentUser() {
     //Get current user info from request from backend not from token...
+    return this.http.get<any>('http://localhost:5000/api/user/getCurrentUser').pipe(
+      tap((res) => console.log('res'))
+    )
   }
 
   registerUser(data: UserRegister) {
