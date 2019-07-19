@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms'
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { UserService } from '../../services/user.service';
 import { TfaService } from '../../services/tfa.service';
@@ -14,34 +14,31 @@ import { Router } from '@angular/router';
 export class TfaSettingsComponent implements OnInit {
   currentUser: any;
   tfaSetup: any;
-  currentTFASettings: any;
+  currentTfaSettings: any;
   tfaEnableForm: FormGroup;
+
+  @Output()
+  tfaFormValue = new EventEmitter<any>();
 
   constructor(private userService: UserService, private fb: FormBuilder, private TfaService: TfaService, private router: Router) {
     this.tfaEnableForm = fb.group({
-      authcode: ['', [Validators.required]]
+      authCode: ['', [Validators.required]]
     })
   }
 
   ngOnInit() {
-    this.userService.getCurrentUser().subscribe(res => {
-      this.currentUser = res;
+    this.userService.getCurrentUser().subscribe(curUser => {
+      this.currentUser = curUser;
       if (!this.currentUser.tfaEnabled) {
-        this.showQRCode()
+        this.showTfaSetup()
       } else {
-        this.currentTFASettings = res.twoFactorSecret;
+        this.currentTfaSettings = curUser.twoFactorSecret;
       }
     });
+    this.tfaFormValue.emit(this.tfaEnableForm.value['authCode']);
   }
 
-  onSubmit() {
-    this.TfaService.tfaEnableVerify({
-      authCode: this.tfaEnableForm.value['authcode']
-    }).subscribe();
-    this.router.navigate['/dashboard'];
-  }
-
-  showQRCode() {
+  showTfaSetup() {
       this.TfaService.tfaEnable().subscribe(res => {
         this.tfaSetup = res;
       })

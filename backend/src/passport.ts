@@ -4,9 +4,11 @@ import User from './models/user.model';
 const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
 
+import { secretOrKey } from './config';
+
 export const jwtOptions = {
   jwtFromRequest: ExtractJwt.fromHeader('authorization'),
-  secretOrKey: 'secret'
+  secretOrKey: secretOrKey
 }
 
 passport.use(new JwtStrategy(jwtOptions, async (payload: any, done: any) => {

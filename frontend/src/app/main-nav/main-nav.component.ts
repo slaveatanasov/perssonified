@@ -12,15 +12,15 @@ import { UserService } from '../services/user.service';
 })
 export class MainNavComponent implements OnInit, OnDestroy {
   currentUser: any;
-  isAuth: boolean;
   authSubscription: Subscription;
+  isAuth: boolean;
+
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches)
     );
 
   constructor(private breakpointObserver: BreakpointObserver, private authService: AuthService, private userService: UserService) {
-    
   }
 
   ngOnInit() {

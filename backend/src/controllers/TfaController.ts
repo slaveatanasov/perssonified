@@ -2,12 +2,13 @@ import { Request, Response, NextFunction } from 'express';
 import * as JWT from 'jsonwebtoken';
 const speakeasy = require('speakeasy');
 const QRCode = require('qrcode');
+import { secretOrKey } from '../config';
 
 import User from '../models/user.model';
 
 const tfaCreate = async (req: Request, res: Response) => {
   const jwtToken: any = await req.headers.authorization;
-  const decodedJwt: any = JWT.verify(jwtToken, 'secret');
+  const decodedJwt: any = JWT.verify(jwtToken, secretOrKey);
 
   const secret = await speakeasy.generateSecret({
     length: 10,
@@ -17,13 +18,12 @@ const tfaCreate = async (req: Request, res: Response) => {
 
   let url = await speakeasy.otpauthURL({
     secret: secret.base32,
-    label: decodedJwt.username,
-    issuer: decodedJwt.username,
+    label: decodedJwt.email,
+    issuer: 'peRSSonified',
     encoding: 'base32'
   });
 
   QRCode.toDataURL(url, (err: any, dataURL: any) => {
-
     User.update({ twoFactorTempSecret: secret.base32 }, { where: { id: decodedJwt.id } });
 
     return res.json({

@@ -1,19 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { tap } from 'rxjs/operators';
-
-import { AuthService } from '../services/auth.service';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TfaService {
-  jwtToken: any;
-  authCode: any;
 
-  constructor(private http: HttpClient, private authService: AuthService) {
-    this.jwtToken = this.authService.getJwtToken();
+  constructor(private http: HttpClient) {
   }
 
   tfaEnable() {
@@ -21,8 +14,7 @@ export class TfaService {
   }
 
   tfaEnableVerify(authCode) {
-    this.authCode = authCode;
-    return this.http.post<any>("http://localhost:5000/api/tfa/verify", {token: this.authCode});
+    return this.http.post<any>("http://localhost:5000/api/tfa/verify", {token: authCode});
   }
 
   tfaDisable() {

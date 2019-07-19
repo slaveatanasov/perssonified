@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import * as bcrypt from 'bcrypt';
 import * as JWT from 'jsonwebtoken';
+import { secretOrKey } from '../config';
 
 const speakeasy = require('speakeasy');
 
@@ -10,10 +11,11 @@ const signToken = (user: User) => {
   return JWT.sign({
     username: user.username,
     id: user.id,
+    email: user.email,
     tfaEnabled: user.tfaEnabled,
     iad: Date.now,
     expiresIn: "24h"
-  }, 'secret');
+  }, secretOrKey);
 }
 
 const login = async (req: Request, res: Response, next: NextFunction) => {

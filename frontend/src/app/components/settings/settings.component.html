@@ -53,7 +53,19 @@
                     Enable/disable TFA
                   </mat-panel-description>
                 </mat-expansion-panel-header>
-                <app-tfa-settings></app-tfa-settings>
+
+                <app-tfa-settings #appTfaSettings ></app-tfa-settings>
+                <!-- <form fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="5px" [formGroup]="tfaForm" >
+                    <mat-form-field>
+                      <input type="text" matInput placeholder="Auth code" formControlName="authCode" >
+                      <mat-error *ngIf="tfaForm.controls['authCode'].hasError('required')">Auth code field is required</mat-error>
+                    </mat-form-field>
+                    <button type="submit" mat-raised-button [disabled]="tfaForm.invalid" color="primary">Submit</button>
+                </form> -->
+
+                <mat-action-row>
+                  <button type="submit" mat-button color="primary" (click)="tfaEnableVerify(appTfaSettings.tfaEnableForm.value.authCode)">Enable/disable</button>
+                </mat-action-row>
             </mat-expansion-panel>
         </mat-accordion>
     </mat-card>

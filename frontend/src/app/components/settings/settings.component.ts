@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms'
+import { Component, OnInit, Input, Output } from '@angular/core';
 
 import { UserService } from '../../services/user.service';
 import { TfaService } from '../../services/tfa.service';
@@ -13,7 +12,7 @@ import { Router } from '@angular/router';
 })
 export class SettingsComponent implements OnInit {
 
-  constructor(private userService: UserService, private fb: FormBuilder, private TfaService: TfaService, private router: Router) {
+  constructor(private userService: UserService, private TfaService: TfaService, private router: Router) {
   }
 
   ngOnInit() {
@@ -25,6 +24,17 @@ export class SettingsComponent implements OnInit {
     //     this.currentTFASettings = res.twoFactorSecret;
     //   }
     // });
+
+  }
+  
+  tfaEnableVerify(authCode) {
+    console.log(authCode);
+    this.TfaService.tfaEnableVerify({
+      authCode
+    }).subscribe(res => {
+      console.log(res);
+    });
+    this.router.navigate['/dashboard'];
   }
 
 }

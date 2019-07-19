@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import * as bcrypt from 'bcrypt';
 import * as JWT from 'jsonwebtoken';
 
+import { secretOrKey } from '../config';
 import User from '../models/user.model';
 
 const findAllUsers = async (req: Request, res: Response) => {
@@ -11,7 +12,7 @@ const findAllUsers = async (req: Request, res: Response) => {
 
 const getCurrentUser = async (req: Request, res: Response) => {
 	const jwtToken: any = await req.headers.authorization;
-	const decodedJwt: any = JWT.verify(jwtToken, 'secret');
+	const decodedJwt: any = JWT.verify(jwtToken, secretOrKey);
 	await User.findOne({ where: { id: decodedJwt.id } })
 		.then(user => res.send(user));
 }
