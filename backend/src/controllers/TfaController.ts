@@ -6,7 +6,7 @@ import { secretOrKey } from '../config';
 
 import User from '../models/user.model';
 
-const tfaCreate = async (req: Request, res: Response) => {
+const tfaSetup = async (req: Request, res: Response) => {
   const jwtToken: any = await req.headers.authorization;
   const decodedJwt: any = JWT.verify(jwtToken, secretOrKey);
 
@@ -82,7 +82,7 @@ const tfaVerify = async (req: Request, res: Response) => {
 }
 
 module.exports = {
-  tfaCreate,
+  tfaSetup,
   tfaFetch,
   tfaDelete,
   tfaVerify

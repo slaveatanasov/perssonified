@@ -66,11 +66,16 @@ const registerUser = async (req: Request, res: Response) => {
 }
 
 const updateUser = async (req: Request, res: Response) => {
-	if (req.params.id) {
-		User.update({}, { where: { id: req.params.id } });
-		console.log('User updated.')
+	const jwtToken: any = await req.headers.authorization;
+	const decodedJwt: any = JWT.verify(jwtToken, secretOrKey);
+	let user = await User.findOne({ where: { id: decodedJwt.id } })
+		.then(user => res.send(user));
+	if (user) {
+		console.log('user');
+		console.log(user);
 	} else {
-		console.log('User was not updated.')
+		console.log('this error')
+		return;
 	}
 }
 
@@ -91,6 +96,7 @@ const getUserByEmail = async (req: Request, res: Response) => {
 		console.log('Unsuccessful fetching of user.')
 	}
 }
+
 
 module.exports = {
 	findAllUsers,

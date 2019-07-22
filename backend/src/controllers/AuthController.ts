@@ -34,7 +34,6 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
             });
           } else {
             if (!req.body['tfaToken']) {
-              console.log(`WARNING: Login was partial without TFA header`);
               return res.send({
                 "status": 206,
                 "message": "Please enter the Auth Code"

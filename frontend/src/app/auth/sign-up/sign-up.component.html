@@ -25,9 +25,9 @@
       <mat-card-title fxLayoutAlign="center center">Sign up</mat-card-title>
         <form fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="5px" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
             <mat-form-field>
-                <input type="text" matInput placeholder="Your username" formControlName="username" >
+                <input type="text" matInput placeholder="Your username"    >
                 <mat-error *ngIf="registerForm.controls['username'].hasError('required')">Username field is required</mat-error>
-              </mat-form-field>
+            </mat-form-field>
           <mat-form-field>
             <input type="email" matInput placeholder="Your email" email formControlName="email" >
             <mat-error *ngIf="registerForm.controls['email'].hasError('required')">Email field is required</mat-error>

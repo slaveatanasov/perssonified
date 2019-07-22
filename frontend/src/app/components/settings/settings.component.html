@@ -40,6 +40,10 @@
                   </mat-panel-description>
                 </mat-expansion-panel-header>
                 <p>CONTENT GOES HERE...</p>
+                <form [formGroup]="userUpdateForm" >
+                  <input type='text' formControlName="username">
+                  <input type='text' formControlName="email">
+                </form>
                 <mat-action-row>
                     <button mat-button>Save</button>
                   </mat-action-row>
