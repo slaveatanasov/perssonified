@@ -1,8 +1,9 @@
 import { Component, OnInit, Input, Output } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms'
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 
 import { UserService } from '../../services/user.service';
 import { TfaService } from '../../services/tfa.service';
+import { MatSnackBar } from '@angular/material';
 
 import { Router } from '@angular/router';
 
@@ -12,29 +13,45 @@ import { Router } from '@angular/router';
   styleUrls: ['./settings.component.css']
 })
 export class SettingsComponent implements OnInit {
-  userUpdateForm: FormGroup;
+  userForm: FormGroup;
   currentUser: any;
 
-  constructor(private userService: UserService, private TfaService: TfaService, private fb: FormBuilder, private router: Router) {
-
-    // console.log(this.currentUser);
-    // this.userUpdateForm = fb.group({
-    //   username: ["", [Validators.required]],
-    //   email: ["", [Validators.required]]
-    // })
+  constructor(private userService: UserService, private TfaService: TfaService, private fb: FormBuilder, private router: Router, private snackBar: MatSnackBar) {
+    this.userForm = fb.group({
+      username: ["", [Validators.required]],
+      email: ["", [Validators.required]]
+    });
   }
 
   ngOnInit() {
     this.userService.getCurrentUser().subscribe(res => {
       this.currentUser = res;
-      if (this.currentUser) {
-        console.log(this.currentUser)
-        this.userUpdateForm.email.setValue(this.currentUser.)
-      } else {
-       console.log('asdasd')
-      }
+      console.log(this.currentUser);
+      this.userForm = this.fb.group({
+        username: [this.currentUser.username, [Validators.required]],
+        email: [this.currentUser.email, [Validators.required]]
+      });
     });
 
+  }
+
+  updateUser() {
+    console.log('clicked')
+    console.log(this.userForm.value);
+    this.snackBar.open('User updated successfully.', 'Close', {
+      panelClass: 'login-snackbar',
+      duration: 5000
+    });
+  }
+
+  cancelUpdate() {
+    console.log('canceled')
+    this.userForm.reset(
+      this.userForm = this.fb.group({
+        username: [this.currentUser.username, [Validators.required]],
+        email: [this.currentUser.email, [Validators.required]]
+      })
+    );
   }
   
   tfaEnableVerify(authCode) {

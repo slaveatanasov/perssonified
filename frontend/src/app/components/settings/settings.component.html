@@ -30,7 +30,7 @@
     <mat-card>
         <mat-card-title fxLayoutAlign="center center">Settings</mat-card-title>
         <mat-accordion>
-            <mat-expansion-panel>
+            <mat-expansion-panel #mep="matExpansionPanel">
                 <mat-expansion-panel-header>
                   <mat-panel-title>
                     User account
@@ -39,14 +39,18 @@
                     Edit account info
                   </mat-panel-description>
                 </mat-expansion-panel-header>
-                <p>CONTENT GOES HERE...</p>
-                <form [formGroup]="userUpdateForm" >
-                  <input type='text' formControlName="username">
-                  <input type='text' formControlName="email">
+                <form [formGroup]="userForm" fxLayout="column"  fxLayoutGap="5px">
+                  <mat-form-field>
+                      <input type="text" matInput value="{{currentUser?.username}}" formControlName="username">
+                  </mat-form-field>
+                  <mat-form-field>
+                      <input type="email" matInput value={{currentUser?.email}} formControlName="email">
+                  </mat-form-field>
                 </form>
                 <mat-action-row>
-                    <button mat-button>Save</button>
-                  </mat-action-row>
+                    <button mat-button (click)="cancelUpdate(mep.expanded = false)">Cancel</button>
+                    <button mat-button (click)="updateUser(mep.expanded = false)">Save</button>
+                </mat-action-row>
             </mat-expansion-panel>
             <mat-expansion-panel>
                 <mat-expansion-panel-header>

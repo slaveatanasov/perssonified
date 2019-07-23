@@ -40,7 +40,7 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
               });
             }
             let isVerified = speakeasy.totp.verify({
-              secret: user!.twoFactorSecret,
+              secret: user!.tfaSecret,
               encoding: 'base32',
               token: req.body['tfaToken']
             });

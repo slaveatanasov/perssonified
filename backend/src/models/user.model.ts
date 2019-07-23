@@ -42,12 +42,12 @@ export default class User extends Model<User> {
 	@Column({
 		type: DataType.TEXT
 	})
-	twoFactorSecret!: string;
+	tfaSecret!: string;
 
 	@Column({
 		type: DataType.TEXT
 	})
-	twoFactorTempSecret!: string;
+	tfaTempSecret!: string;
 
 	@CreatedAt
 	@Column({

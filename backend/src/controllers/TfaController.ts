@@ -24,7 +24,7 @@ const tfaSetup = async (req: Request, res: Response) => {
   });
 
   QRCode.toDataURL(url, (err: any, dataURL: any) => {
-    User.update({ twoFactorTempSecret: secret.base32 }, { where: { id: decodedJwt.id } });
+    User.update({ tfaTempSecret: secret.base32 }, { where: { id: decodedJwt.id } });
 
     return res.json({
       message: 'TFA Auth needs to be verified',
@@ -46,7 +46,7 @@ const tfaFetch = async (req: Request, res: Response) => {
 const tfaDelete = async (req: Request, res: Response) => {
   const jwtToken: any = await req.headers.authorization;
   const decodedJwt: any = JWT.verify(jwtToken, 'secret');
-  await User.update({ tfaEnabled: false, twoFactorTempSecret: null, twoFactorSecret: null }, { where: { id: decodedJwt.id } })
+  await User.update({ tfaEnabled: false, tfaTempSecret: null, tfaSecret: null }, { where: { id: decodedJwt.id } })
     .then(updatedUser => console.log(updatedUser));
   res.send({
     "message": "Two factor authentication disabled successfully."
@@ -58,7 +58,7 @@ const tfaVerify = async (req: Request, res: Response) => {
   const decodedJwt: any = JWT.verify(jwtToken, 'secret')
 
   const user = await User.findOne({ where: { id: decodedJwt.id } });
-  let tempSecret = user!.twoFactorTempSecret;
+  let tempSecret = user!.tfaTempSecret;
 
   let isVerified = speakeasy.totp.verify({
     secret: tempSecret,
@@ -67,7 +67,7 @@ const tfaVerify = async (req: Request, res: Response) => {
   });
 
   if (isVerified) {
-    await User.update({ tfaEnabled: true, twoFactorSecret: tempSecret, twoFactorTempSecret: null }, { where: { id: decodedJwt.id } });
+    await User.update({ tfaEnabled: true, tfaSecret: tempSecret, tfaTempSecret: null }, { where: { id: decodedJwt.id } });
 
     return res.send({
       "status": 200,

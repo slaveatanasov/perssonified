@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 
 import { LayoutModule } from '@angular/cdk/layout';
-import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatFormFieldModule, MatInputModule, MatMenuModule, MatExpansionModule} from '@angular/material';
+import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatFormFieldModule, MatInputModule, MatMenuModule, MatExpansionModule, MatGridListModule} from '@angular/material';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatCardModule } from '@angular/material/card';
 
@@ -19,7 +19,8 @@ import { MatCardModule } from '@angular/material/card';
     MatInputModule,
     MatSnackBarModule,
     MatMenuModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatGridListModule
   ],
   exports: [
     LayoutModule,
@@ -33,7 +34,8 @@ import { MatCardModule } from '@angular/material/card';
     MatInputModule,
     MatSnackBarModule,
     MatMenuModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatGridListModule
   ]
 })
 export class MaterialModule { }

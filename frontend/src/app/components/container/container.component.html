@@ -1,4 +1,4 @@
-<div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="5px">
+<!-- <div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="5px">
     <div class="gallery-card" *ngFor="let item of state; let i = index">
       <mat-card fxFlex="400px" *ngIf="i %9 == 0">
           <mat-card-title>{{item.title}}</mat-card-title>
@@ -10,4 +10,31 @@
           </mat-card-content>
       </mat-card>
     </div>
+</div> -->
+
+<div class="container-grid-list">
+  <mat-grid-list cols="2" rowHeight="1:1" gutterSize="15px" >
+    <mat-grid-tile colspan="2" class="grid-tile-1">
+        <div class="gallery-card" *ngFor="let item of state; let i = index">
+            <mat-card *ngIf="i %1 == 0">
+                <mat-card-title>{{item.title}}</mat-card-title>
+                <mat-card-content>
+                  <p *ngIf="item.content">{{item.content}}</p>
+                  <img src="{{item.urlToImage}}" mat-card-image>
+                  <span *ngIf="item.author">Author: </span><span>{{item.author}}</span> 
+                  <h4>{{item.publishedAt | date}}</h4> 
+                </mat-card-content>
+            </mat-card>
+          </div>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      Some news
+    </mat-grid-tile>
+    <mat-grid-tile>
+      Some more news
+    </mat-grid-tile>
+    <mat-grid-tile colspan="2">
+      Other news
+    </mat-grid-tile>
+  </mat-grid-list>
 </div>
