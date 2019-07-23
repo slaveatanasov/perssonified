@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output } from '@angular/core';
 
 import { UserService } from '../../services/user.service';
-import { AuthService } from '../../services/auth.service';
+import { TfaService } from '../../services/tfa.service';
+
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-settings',
@@ -10,13 +12,29 @@ import { AuthService } from '../../services/auth.service';
 })
 export class SettingsComponent implements OnInit {
 
-  constructor(private authService: UserService) { 
-    // this.userService.getCurrentUser().subscribe(res => console.log(res));
-    this.authService.getCurrentUser().subscribe(res => console.log(res));
+  constructor(private userService: UserService, private TfaService: TfaService, private router: Router) {
   }
 
   ngOnInit() {
+    // this.userService.getCurrentUser().subscribe(res => {
+    //   this.currentUser = res;
+    //   if (!this.currentUser.tfaEnabled) {
+    //     this.showQRCode()
+    //   } else {
+    //     this.currentTFASettings = res.twoFactorSecret;
+    //   }
+    // });
 
+  }
+  
+  tfaEnableVerify(authCode) {
+    console.log(authCode);
+    this.TfaService.tfaEnableVerify({
+      authCode
+    }).subscribe(res => {
+      console.log(res);
+    });
+    this.router.navigate['/dashboard'];
   }
 
 }

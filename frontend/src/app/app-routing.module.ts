@@ -12,6 +12,7 @@ const routes: Routes = [
   { path: '', pathMatch: 'full', component: ContainerComponent, canActivate: [JwtAuthGuard] },
   { path: 'dashboard', component: DashboardComponent, canActivate: [JwtAuthGuard] },
   { path: 'settings', component: SettingsComponent, canActivate: [JwtAuthGuard] },
+  { path: 'tfa', component: SettingsComponent, canActivate: [JwtAuthGuard] },
   { path: 'signup', component: SignUpComponent },
   { path: 'login', component: LogInComponent }
 ];

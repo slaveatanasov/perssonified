@@ -35,7 +35,7 @@ export class LogInComponent implements OnInit {
       password: this.loginForm.value['password'],
       tfaToken: this.tfaForm.value['token']
     })
-      .subscribe((response) => {
+      .subscribe(response => {
         if (response.status == 206) {
           this.tfaFlag = true;
           this.snackBar.open('Complete 2 step verification.', 'Close', {

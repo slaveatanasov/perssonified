@@ -5,7 +5,6 @@ import { Subject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material';
 
-
 import { UserRegister, UserLogin } from '../models/auth/user.model';
 
 
@@ -14,7 +13,6 @@ import { UserRegister, UserLogin } from '../models/auth/user.model';
 })
 export class AuthService {
 
-  private currentUser: any;
   private userRegister: UserRegister;
   private userLogin: any;
 
@@ -26,28 +24,23 @@ export class AuthService {
     return localStorage.getItem('jwtToken');
   }
 
-  getCurrentUser() {
-    //Get current user info from request from backend not from token...
-    return this.http.get<any>('http://localhost:5000/api/user/getCurrentUser').pipe(
-      tap((res) => console.log('res'))
-    )
-  }
-
   registerUser(data: UserRegister) {
+    let { username, email, password, passwordConfirm } = data;
     this.userRegister = {
-      username: data.username,
-      email: data.email,
-      password: data.password,
-      passwordConfirm: data.passwordConfirm
+      username,
+      email,
+      password,
+      passwordConfirm
     };
     return this.http.post<any>('http://localhost:5000/api/auth/register', this.userRegister);
   }
 
   loginUser(data) {
+    let { email, password, tfaToken } = data;
     this.userLogin = {
-      email: data.email,
-      password: data.password,
-      tfaToken: data.tfaToken
+      email,
+      password,
+      tfaToken
     };
 
     return this.http.post<any>('http://localhost:5000/api/auth/login', this.userLogin).pipe(
@@ -75,7 +68,7 @@ export class AuthService {
 
   isJwtAuth(): boolean {
     if (localStorage.getItem('jwtToken') !== null) {
-      return true
+      return true;
     }
   }
 

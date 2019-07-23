@@ -6,10 +6,14 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MaterialModule } from './material.module';
-import { JwtModule } from '@auth0/angular-jwt';
 
 import { ApiKeyInterceptor } from './services/api-key.interceptor';
+<<<<<<< HEAD
 // import { JwtTokenInterceptor } from './services/jwtToken.interceptor';
+=======
+import { JwtInterceptor } from './services/jwt.interceptor';
+
+>>>>>>> 9601fc65354c664b1e0750c7a414ad4ca41f10a1
 import { AuthService } from './services/auth.service';
 
 import { AppComponent } from './app.component';
@@ -19,6 +23,7 @@ import { SignUpComponent } from './auth/sign-up/sign-up.component';
 import { LogInComponent } from './auth/log-in/log-in.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { SettingsComponent } from './components/settings/settings.component';
+import { TfaSettingsComponent } from './components/tfa-settings/tfa-settings.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +34,7 @@ import { SettingsComponent } from './components/settings/settings.component';
     LogInComponent,
     DashboardComponent,
     SettingsComponent,
+    TfaSettingsComponent,
   ],
   imports: [
     BrowserModule,
@@ -38,18 +44,9 @@ import { SettingsComponent } from './components/settings/settings.component';
     BrowserAnimationsModule,
     FlexLayoutModule,
     FormsModule,
-    ReactiveFormsModule,
-    JwtModule.forRoot({
-      config: {
-        tokenGetter: () => {
-          return localStorage.getItem('jwtToken');
-        },
-        whitelistedDomains: ['http://localhost:4200/dashboard', 'http://localhost:4200/settings'],
-        blacklistedRoutes: ['http://localhost:4200/register', 'http://localhost:4200/login']
-      }
-    })
+    ReactiveFormsModule
   ],
-  providers: [{ provide: HTTP_INTERCEPTORS, useClass: ApiKeyInterceptor, multi: true }, AuthService],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: ApiKeyInterceptor, multi: true }, { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

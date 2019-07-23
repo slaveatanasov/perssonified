@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import * as bcrypt from 'bcrypt';
 import * as JWT from 'jsonwebtoken';
 
+import { secretOrKey } from '../config';
 import User from '../models/user.model';
 
 const findAllUsers = async (req: Request, res: Response) => {
@@ -10,11 +11,10 @@ const findAllUsers = async (req: Request, res: Response) => {
 }
 
 const getCurrentUser = async (req: Request, res: Response) => {
-	console.log(req.headers.authorization);
 	const jwtToken: any = await req.headers.authorization;
-	const decodedJwt: any = JWT.verify(jwtToken, 'secret');
-	 await User.findOne({ where: { id: decodedJwt.id } })
-	 	.then(user => res.send(user));
+	const decodedJwt: any = JWT.verify(jwtToken, secretOrKey);
+	await User.findOne({ where: { id: decodedJwt.id } })
+		.then(user => res.send(user));
 }
 
 const registerUser = async (req: Request, res: Response) => {
@@ -29,7 +29,7 @@ const registerUser = async (req: Request, res: Response) => {
 			errors.push({ message: "Passwords do not match." });
 		}
 		if (password.length < 8) {
-			errors.push({ message: "Passwords must be at least 8 characters." });
+			errors.push({ message: "Password must be at least 8 characters." });
 		}
 		if (errors.length > 0) {
 			res.send(errors);
@@ -56,20 +56,20 @@ const registerUser = async (req: Request, res: Response) => {
 									.then(user => {
 										res.status(200).json({ message: 'User successfully registered.' });
 									})
-									.catch(err => console.log(err));
+									.catch(err => errors.push(err));
 							})
 						})
 					}
 				})
 		}
 	} catch (err) {
-		console.log(err)
+		res.send(err);
 	}
 }
 
 const updateUser = async (req: Request, res: Response) => {
 	if (req.params.id) {
-		User.update({}, {where: {id: req.params.id}});
+		User.update({}, { where: { id: req.params.id } });
 		console.log('User updated.')
 	} else {
 		console.log('User was not updated.')
@@ -99,5 +99,6 @@ module.exports = {
 	registerUser,
 	getUserById,
 	getUserByEmail,
-	getCurrentUser
+	getCurrentUser,
+	updateUser
 }
