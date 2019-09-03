@@ -32,7 +32,7 @@ export class TfaSettingsComponent implements OnInit {
       if (!this.currentUser.tfaEnabled) {
         this.showTfaSetup()
       } else {
-        this.currentTfaSettings = curUser.twoFactorSecret;
+        this.currentTfaSettings = curUser.tfaSecret;
       }
     });
     this.tfaFormValue.emit(this.tfaEnableForm.value['authCode']);
