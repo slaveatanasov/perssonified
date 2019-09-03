@@ -15,7 +15,7 @@
 <h1 class="page-title">News</h1>
 
 <div class="container-grid-list">
-  <mat-grid-list cols="2" rowHeight="1:1" gutterSize="15px" >
+  <mat-grid-list cols="2" rowHeight="610px" gutterSize="15px" >
     <mat-grid-tile colspan="2" class="grid-tile-1">
           <div class="gallery-card" *ngFor="let item of state; let i = index">
               <mat-card *ngIf="i %1 == 0">
@@ -31,12 +31,13 @@
       </div>
     </mat-grid-tile>
     <mat-grid-tile class="grid-tile-2" >
-        <div class="gallery-card" *ngFor="let item of state; let i = index" >
+        <div class="gallery-card-alt" *ngFor="let item of state; let i = index" >
             <mat-card *ngIf="i % 9 == 0">
                 <mat-card-title>{{item.title}}</mat-card-title>
                 <mat-card-content>
                   <p *ngIf="item.content">{{item.content}}</p>
-                  <img src="{{item.urlToImage}}" mat-card-image>
+                  <!-- <img src="{{item.urlToImage}}" mat-card-image> -->
+                  <div class="card-image" [style.background-image]="'url('+item.urlToImage+')'"></div>
                   <span *ngIf="item.author">Author: </span><span>{{item.author}}</span> 
                   <h4>{{item.publishedAt | date}}</h4> 
                 </mat-card-content>
