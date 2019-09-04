@@ -4,46 +4,48 @@ import { Observable } from 'rxjs';
 import { NewsApiService } from '../../services/news-api.service';
 import { filter, map, subscribeOn } from 'rxjs/operators';
 
+// import { SwiperComponent, SwiperDirective, SwiperConfigInterface,
+//   SwiperScrollbarInterface, SwiperPaginationInterface } from 'ngx-swiper-wrapper';
+import { NguCarouselConfig } from '@ngu/carousel';
+
 @Component({
   selector: 'app-container',
   templateUrl: './container.component.html',
   styleUrls: ['./container.component.scss']
 })
 export class ContainerComponent implements OnInit {
+  mainNews: any[] = [];
+  techNews: any[] = [];
 
-  state: any[] = [];
-  state2: any[] = [];
+
 
   constructor(private http: HttpClient, private newsApiService: NewsApiService) {
 
   }
 
   ngOnInit() {
-    this.getNews();
-    this.getTech();
+    this.getMainNews();
+    this.getTechNews();
   }
 
-  getNews() {
+  getMainNews() {
     this.newsApiService.getData()
       .pipe(map(results => {
         return results.articles;
       }))
       .subscribe((res) => {
-        console.log(res);
-        this.state = res;
+        this.mainNews = res;
       })
   }
 
-  getTech() {
+  getTechNews() {
     this.newsApiService.getData2()
       .pipe(map((results) => {
         return results.articles;
       }))
       .subscribe((res) => {
-        this.state2 = res;
-        console.log(this.state2)
+        this.techNews = res;
       })
   }
-
 
 }
