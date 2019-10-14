@@ -7,7 +7,7 @@ import { MatSnackBar } from '@angular/material';
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
-  styleUrls: ['./sign-up.component.css']
+  styleUrls: ['./sign-up.component.scss']
 })
 export class SignUpComponent implements OnInit {
   registerForm: FormGroup;
@@ -31,21 +31,12 @@ export class SignUpComponent implements OnInit {
       email: this.registerForm.value['email'],
       password: this.registerForm.value['password'],
       passwordConfirm: this.registerForm.value['passwordConfirm']
-    }).subscribe((res) => {
-      if (res.errMessage) {
-        const errorMessage = res.errMessage;
-        this.snackBar.open(errorMessage, 'Close', {
-          panelClass: 'login-snackbar',
-          duration: 3000
-        })
-      } else if (!res.errMessage) {
-        this.router.navigate(['/login']);
-        this.snackBar.open('Successful registration.', 'Close', {
-          panelClass: 'login-snackbar',
-          duration: 3000
-        });
-      }
-
+    }).subscribe(() => {
+      this.router.navigate(['/login']);
+      this.snackBar.open('Successful registration.', 'Close', {
+        panelClass: 'login-snackbar',
+        duration: 3000
+      })
     }, (error) => {
       const errorMessage = error.error.message;
       this.snackBar.open(errorMessage, 'Close', {

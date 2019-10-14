@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-tfa-settings',
   templateUrl: './tfa-settings.component.html',
-  styleUrls: ['./tfa-settings.component.css']
+  styleUrls: ['./tfa-settings.component.scss']
 })
 export class TfaSettingsComponent implements OnInit {
   currentUser: any;

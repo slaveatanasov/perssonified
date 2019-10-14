@@ -8,7 +8,7 @@ import { UserService } from '../services/user.service';
 @Component({
   selector: 'app-main-nav',
   templateUrl: './main-nav.component.html',
-  styleUrls: ['./main-nav.component.css']
+  styleUrls: ['./main-nav.component.scss']
 })
 export class MainNavComponent implements OnInit, OnDestroy {
   currentUser: any;
@@ -28,6 +28,7 @@ export class MainNavComponent implements OnInit, OnDestroy {
     this.authSubscription = this.authService.authChange.subscribe(authStatus => {
       this.isAuth = authStatus;
     });
+    this.authService.persistLogin();
   }
 
   ngOnDestroy() {

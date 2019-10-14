@@ -37,10 +37,8 @@ const registerUser = async (req: Request, res: Response) => {
 			await User.findOne({ where: { email: email } })
 				.then(async user => {
 					if (user) {
-						// errors.push({ message: "Email is already registered." });
-						res.send({
-							errMessage: "Email is already registered."
-						});
+						errors.push({ message: "Email is already registered." });
+						res.send(errors);
 					} else {
 						const newUser = await {
 							username,

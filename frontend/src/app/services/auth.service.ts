@@ -35,6 +35,15 @@ export class AuthService {
     return this.http.post<any>('http://localhost:5000/api/auth/register', this.userRegister);
   }
 
+  persistLogin() {
+    const loggedIn = localStorage.getItem('jwtToken');
+    if (!loggedIn) {
+      return;
+    } else {
+      this.authChange.next(true);
+    }
+  }
+
   loginUser(data) {
     let { email, password, tfaToken } = data;
     this.userLogin = {

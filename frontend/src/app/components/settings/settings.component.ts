@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
-  styleUrls: ['./settings.component.css']
+  styleUrls: ['./settings.component.scss']
 })
 export class SettingsComponent implements OnInit {
   userForm: FormGroup;
@@ -61,6 +61,11 @@ export class SettingsComponent implements OnInit {
     }).subscribe(res => {
       console.log(res);
     });
+    this.router.navigate['/dashboard'];
+  }
+
+  tfaDisable() {
+    this.TfaService.tfaDisable().subscribe();
     this.router.navigate['/dashboard'];
   }
 

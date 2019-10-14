@@ -6,14 +6,13 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MaterialModule } from './material.module';
+// import { DragScrollModule } from 'ngx-drag-scroll';
+// import { SwiperModule, SwiperConfigInterface, SWIPER_CONFIG } from 'ngx-swiper-wrapper';
+import { NguCarouselModule } from '@ngu/carousel';
 
 import { ApiKeyInterceptor } from './services/api-key.interceptor';
-<<<<<<< HEAD
-// import { JwtTokenInterceptor } from './services/jwtToken.interceptor';
-=======
 import { JwtInterceptor } from './services/jwt.interceptor';
 
->>>>>>> 9601fc65354c664b1e0750c7a414ad4ca41f10a1
 import { AuthService } from './services/auth.service';
 
 import { AppComponent } from './app.component';
@@ -41,12 +40,17 @@ import { TfaSettingsComponent } from './components/tfa-settings/tfa-settings.com
     AppRoutingModule,
     HttpClientModule,
     MaterialModule,
+    // DragScrollModule,
+    // SwiperModule,
+    NguCarouselModule,
     BrowserAnimationsModule,
     FlexLayoutModule,
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [{ provide: HTTP_INTERCEPTORS, useClass: ApiKeyInterceptor, multi: true }, { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }, AuthService],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: ApiKeyInterceptor, multi: true }, { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }, 
+    // { provide: SWIPER_CONFIG, useValue: DEFAULT_SWIPER_CONFIG },
+     AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

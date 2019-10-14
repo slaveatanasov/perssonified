@@ -72,7 +72,8 @@
                 </form> -->
 
                 <mat-action-row>
-                  <button type="submit" mat-button color="primary" (click)="tfaEnableVerify(appTfaSettings.tfaEnableForm.value.authCode)">Enable/disable</button>
+                  <button type="submit" mat-button color="primary" (click)="tfaEnableVerify(appTfaSettings.tfaEnableForm.value.authCode)" *ngIf="!currentUser?.tfaEnabled">Enable</button>
+                  <button type="submit" mat-button color="primary" (click)="tfaDisable()" *ngIf="currentUser?.tfaEnabled">Disable</button>
                 </mat-action-row>
             </mat-expansion-panel>
         </mat-accordion>
