@@ -38,7 +38,13 @@
         *ngIf="isHandset$ | async">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <a routerLink="/"><span class="app-title">peRSSonified</span></a>
+      <!-- <a routerLink="/"><span class="app-title">peRSSonified</span></a> -->
+      <a routerLink="/">
+        <div class="logo-title">
+          <img class="logo-image" src="../../assets/img/perssonifiedLogo.png">
+          <span class="app-title">PERSSONIFIED</span>
+        </div>
+      </a>
       <span class="spacer"></span>
       <div fxHide.xs class="toolbar-btns">
         <mat-menu #menu="matMenu" xPosition="before">

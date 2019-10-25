@@ -62,7 +62,10 @@ mat-toolbar li {
 }
 
 .app-title {
-  color: rgb(26, 24, 24);
+  // color: rgb(26, 24, 24);
+  color: #d58b91;
+  margin-left: 8px;
+  font-size: 1.25rem;
 }
 
 .mat-toolbar-color {
@@ -88,4 +91,15 @@ li {
   list-style: none;
   height: 100%;
   box-sizing: border-box;
+}
+
+.logo-image {
+  height: 52px;
+  display: flex;
+}
+
+.logo-title {
+  display: flex;
+  align-items: center;
+  margin-left: 56px;
 }

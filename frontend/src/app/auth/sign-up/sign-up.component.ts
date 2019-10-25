@@ -9,6 +9,7 @@ import { MatSnackBar } from '@angular/material';
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.scss']
 })
+
 export class SignUpComponent implements OnInit {
   registerForm: FormGroup;
   returnUrl: string;
@@ -16,7 +17,7 @@ export class SignUpComponent implements OnInit {
   constructor(private authService: AuthService, fb: FormBuilder, private router: Router, private snackBar: MatSnackBar) {
     this.registerForm = fb.group({
       username: ['', [Validators.required]],
-      email: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
       passwordConfirm: ['', [Validators.required]]
     }, { validator: this.checkPasswords('password', 'passwordConfirm') });
@@ -59,5 +60,4 @@ export class SignUpComponent implements OnInit {
       }
     }
   }
-
 }
