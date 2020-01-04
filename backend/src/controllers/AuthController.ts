@@ -13,8 +13,8 @@ const signToken = (user: User) => {
     id: user.id,
     email: user.email,
     tfaEnabled: user.tfaEnabled,
-    iad: Date.now,
-    expiresIn: "24h"
+    iat: Date.now,
+    expiresIn: "12h"
   }, secretOrKey);
 }
 
@@ -25,7 +25,7 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
 
     if (email && password) {
       if (user) {
-        if (await bcrypt.compareSync(password, user.password)) {
+        if (bcrypt.compareSync(password, user.password)) {
           if (!user.tfaEnabled) {
             const jwtToken = signToken(user);
             res.send({
@@ -36,7 +36,7 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
             if (!req.body['tfaToken']) {
               return res.send({
                 "status": 206,
-                "message": "Please enter the Auth Code"
+                "message": "Please enter the Auth Code."
               });
             }
             let isVerified = speakeasy.totp.verify({
@@ -50,7 +50,7 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
 
               res.send({
                 status: 200,
-                message: "Successful 2 step verification login.",
+                message: "Successful two-factor verification login.",
                 accessToken: jwtToken
               });
             }

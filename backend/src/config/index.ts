@@ -1,5 +1,1 @@
-export const secretOrKey = 'secret';
-
-export const db = {
-    password: 'admin'
-}
+export const secretOrKey = process.env.JWT_SECRET!;

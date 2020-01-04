@@ -11,8 +11,9 @@ const findAllUsers = async (req: Request, res: Response) => {
 }
 
 const getCurrentUser = async (req: Request, res: Response) => {
-	const jwtToken: any = await req.headers.authorization;
+	const jwtToken: any = req.headers.authorization;
 	const decodedJwt: any = JWT.verify(jwtToken, secretOrKey);
+
 	await User.findOne({ where: { id: decodedJwt.id } })
 		.then(user => res.send(user));
 }
@@ -40,7 +41,7 @@ const registerUser = async (req: Request, res: Response) => {
 						errors.push({ message: "Email is already registered." });
 						res.send(errors);
 					} else {
-						const newUser = await {
+						const newUser = {
 							username,
 							email,
 							password,
@@ -66,15 +67,16 @@ const registerUser = async (req: Request, res: Response) => {
 }
 
 const updateUser = async (req: Request, res: Response) => {
-	const jwtToken: any = await req.headers.authorization;
+	const jwtToken: any = req.headers.authorization;
 	const decodedJwt: any = JWT.verify(jwtToken, secretOrKey);
+
 	let user = await User.findOne({ where: { id: decodedJwt.id } })
 		.then(user => res.send(user));
+
 	if (user) {
-		console.log('user');
+		console.log('User:');
 		console.log(user);
 	} else {
-		console.log('this error')
 		return;
 	}
 }
@@ -96,7 +98,6 @@ const getUserByEmail = async (req: Request, res: Response) => {
 		console.log('Unsuccessful fetching of user.')
 	}
 }
-
 
 module.exports = {
 	findAllUsers,

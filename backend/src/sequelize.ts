@@ -1,13 +1,12 @@
 import { Sequelize } from 'sequelize-typescript';
 import { Op } from 'sequelize';
-import { db } from './config';
 
 export const sequelize = new Sequelize({
 	dialect: 'mysql',
-	database: 'perssonified',
+	database: process.env.DB_NAME!,
 	operatorsAliases: Op,
-	username: 'root',
-	password: db.password,
+	username: process.env.DB_USERNAME!,
+	password: process.env.DB_PASSWORD!,
 	port: 3306,
 	modelPaths: [__dirname + '/models'],
 	modelMatch: (filename, member) => {

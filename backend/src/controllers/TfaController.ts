@@ -7,7 +7,7 @@ import { secretOrKey } from '../config';
 import User from '../models/user.model';
 
 const tfaSetup = async (req: Request, res: Response) => {
-  const jwtToken: any = await req.headers.authorization;
+  const jwtToken: any = req.headers.authorization;
   const decodedJwt: any = JWT.verify(jwtToken, secretOrKey);
 
   const secret = await speakeasy.generateSecret({
@@ -27,7 +27,7 @@ const tfaSetup = async (req: Request, res: Response) => {
     User.update({ tfaTempSecret: secret.base32 }, { where: { id: decodedJwt.id } });
 
     return res.json({
-      message: 'TFA Auth needs to be verified',
+      message: 'Two-factor authentication needs to be verified.',
       tempSecret: secret.base32,
       dataURL,
       tfaURL: secret.otpauth_url
@@ -36,26 +36,27 @@ const tfaSetup = async (req: Request, res: Response) => {
 }
 
 const tfaFetch = async (req: Request, res: Response) => {
-  const jwtToken: any = await req.headers.authorization;
-  const decodedJwt: any = JWT.verify(jwtToken, 'secret');
+  const jwtToken: any = req.headers.authorization;
+  const decodedJwt: any = JWT.verify(jwtToken, secretOrKey);
 
   await User.findOne({ where: { id: decodedJwt.id } })
     .then(result => res.json(result ? result : null));
 }
 
 const tfaDelete = async (req: Request, res: Response) => {
-  const jwtToken: any = await req.headers.authorization;
-  const decodedJwt: any = JWT.verify(jwtToken, 'secret');
+  const jwtToken: any = req.headers.authorization;
+  const decodedJwt: any = JWT.verify(jwtToken, secretOrKey);
+
   await User.update({ tfaEnabled: false, tfaTempSecret: null, tfaSecret: null }, { where: { id: decodedJwt.id } })
     .then(updatedUser => console.log(updatedUser));
   res.send({
-    "message": "Two factor authentication disabled successfully."
+    "message": "Two-factor authentication disabled successfully."
   })
 }
 
 const tfaVerify = async (req: Request, res: Response) => {
-  const jwtToken: any = await req.headers.authorization;
-  const decodedJwt: any = JWT.verify(jwtToken, 'secret')
+  const jwtToken: any = req.headers.authorization;
+  const decodedJwt: any = JWT.verify(jwtToken, secretOrKey)
 
   const user = await User.findOne({ where: { id: decodedJwt.id } });
   let tempSecret = user!.tfaTempSecret;
@@ -71,7 +72,7 @@ const tfaVerify = async (req: Request, res: Response) => {
 
     return res.send({
       "status": 200,
-      "message": "Two-factor Auth is enabled successfully"
+      "message": "Two-factor authentication is enabled successfully."
     });
   }
 
