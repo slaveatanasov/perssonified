@@ -23,6 +23,7 @@ import { LogInComponent } from './auth/log-in/log-in.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { TfaSettingsComponent } from './components/tfa-settings/tfa-settings.component';
+import { DashboardInfoComponent } from './components/dashboard-info/dashboard-info.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { TfaSettingsComponent } from './components/tfa-settings/tfa-settings.com
     DashboardComponent,
     SettingsComponent,
     TfaSettingsComponent,
+    DashboardInfoComponent,
   ],
   imports: [
     BrowserModule,

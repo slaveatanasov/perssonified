@@ -36,7 +36,7 @@ export class SettingsComponent implements OnInit {
   }
 
   updateUser() {
-    console.log('clicked')
+    console.log('updated')
     console.log(this.userForm.value);
     this.snackBar.open('User updated successfully.', 'Close', {
       panelClass: 'login-snackbar',

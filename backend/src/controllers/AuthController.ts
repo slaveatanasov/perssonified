@@ -13,7 +13,7 @@ const signToken = (user: User) => {
     id: user.id,
     email: user.email,
     tfaEnabled: user.tfaEnabled,
-    iat: Date.now,
+    iat: Math.floor(Date.now() / 1000),
     expiresIn: "12h"
   }, secretOrKey);
 }
@@ -27,6 +27,7 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
       if (user) {
         if (bcrypt.compareSync(password, user.password)) {
           if (!user.tfaEnabled) {
+            console.log(Math.floor(Date.now() / 1000))
             const jwtToken = signToken(user);
             res.send({
               status: 200,

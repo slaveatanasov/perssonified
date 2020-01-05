@@ -11,7 +11,8 @@ import {
   MatMenuModule, 
   MatExpansionModule, 
   MatGridListModule,
-  MatProgressBarModule
+  MatProgressBarModule,
+  MatProgressSpinnerModule
 } from '@angular/material';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatCardModule } from '@angular/material/card';
@@ -31,7 +32,8 @@ import { MatCardModule } from '@angular/material/card';
     MatMenuModule,
     MatExpansionModule,
     MatGridListModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatProgressSpinnerModule
   ],
   exports: [
     LayoutModule,
@@ -47,7 +49,8 @@ import { MatCardModule } from '@angular/material/card';
     MatMenuModule,
     MatExpansionModule,
     MatGridListModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatProgressSpinnerModule
   ]
 })
 
