@@ -15,6 +15,7 @@ backend/config/index.ts
 backend/node_modules/
 /node_modules
 frontend/node_modules/
+frontend/src/environments
 
 # profiling files
 chrome-profiler-events.json
