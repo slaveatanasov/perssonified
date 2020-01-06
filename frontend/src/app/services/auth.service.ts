@@ -6,6 +6,7 @@ import { tap } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material';
 
 import { UserRegister, UserLogin } from '../models/auth/user.model';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
@@ -32,7 +33,7 @@ export class AuthService {
       password,
       passwordConfirm
     };
-    return this.http.post<any>('http://localhost:5000/api/auth/register', this.userRegister);
+    return this.http.post<any>(`${environment.apiURL}/auth/register`, this.userRegister);
   }
 
   persistLogin() {
@@ -52,7 +53,7 @@ export class AuthService {
       tfaToken
     };
 
-    return this.http.post<any>('http://localhost:5000/api/auth/login', this.userLogin).pipe(
+    return this.http.post<any>(`${environment.apiURL}/auth/login`, this.userLogin).pipe(
       tap(response => {
         if (response.status === 200) {
           let token = response.accessToken;
