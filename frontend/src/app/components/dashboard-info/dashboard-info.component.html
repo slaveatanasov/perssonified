@@ -1,7 +1,7 @@
 <div class="dashboard-info" fxLayout="row" fxLayoutAlign="center center">
   <mat-card>
     <mat-card-title fxLayoutAlign="center center">
-      Hi, {{currentUser?.username}}
+      Hi, {{currentUserName}}
     </mat-card-title>
     <mat-card-content>
       <div *ngIf="loading" class="progress-bar">
@@ -11,11 +11,11 @@
         <ul>
           <li>
             <h4>Username:</h4>
-            <span>{{currentUser?.username}}</span>
+            <span>{{currentUserName}}</span>
           </li>
           <li>
             <h4>Date joined:</h4>
-            <span>{{currentUser?.createdAt | date}}</span>
+            <span>{{currentUserDateCreated | date}}</span>
           </li>
         </ul>
       </div>

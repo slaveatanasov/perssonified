@@ -1,69 +1,45 @@
-<!-- <section *ngIf="currentUser" class="tfa-form" fxLayout="column" fxLayoutAlign="center center" >
-  <div *ngIf="!currentUser.tfaEnabled">
-      <mat-card *ngIf='tfaSetup'>
-          <mat-card-title fxLayoutAlign="center center">Setup TFA</mat-card-title>
-          <mat-card-subtitle>Scan the QR code or enter the secret key in Google Authenticator</mat-card-subtitle>
-          <img mat-card-image src="{{tfaSetup.dataURL}}">
-          <p>Secret: {{tfaSetup.tempSecret}}</p>
-          <p>Auth Type - Time Based - OTP</p>
-          <form fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="5px" [formGroup]="tfaEnableForm" (ngSubmit)="onSubmit()">
-              <mat-form-field>
-                <input type="text" matInput placeholder="Auth code" formControlName="authcode" >
-                <mat-error *ngIf="tfaEnableForm.controls['authcode'].hasError('required')">Auth code field is required</mat-error>
-              </mat-form-field>
-              <button type="submit" mat-raised-button [disabled]="tfaEnableForm.invalid" color="primary">Submit</button>
-          </form>
-      </mat-card>
-  </div>
-  <div *ngIf="currentTFASettings">
-    <mat-card>
-        <mat-card-title fxLayoutAlign="center center">Current TFA settings</mat-card-title>
-        <p>Secret: {{currentTFASettings}}</p>
-        <p>Auth Type - Time Based - OTP</p>
-        <button mat-raised-button color="primary" (click)="disableTFA()">Disable TFA</button>
-    </mat-card>
-  </div>
+<div class="settings" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
+  <mat-card>
+    <mat-card-title fxLayoutAlign="center center">Settings</mat-card-title>
+    <mat-accordion>
+      <mat-expansion-panel #mep="matExpansionPanel">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Account
+          </mat-panel-title>
+          <mat-panel-description fxLayoutAlign="end">
+            Edit account info
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <form [formGroup]="userForm" fxLayout="column" fxLayoutGap="5px">
+          <mat-form-field>
+            <input type="text" matInput onfocus="this.value=''" value="{{currentUser?.username}}"
+              placeholder="{{currentUser?.username}}" formControlName="username">
+          </mat-form-field>
+          <mat-form-field>
+            <input type="email" matInput onfocus="this.value=''" value={{currentUser?.email}}
+              placeholder="{{currentUser?.email}}" formControlName="email">
+          </mat-form-field>
+        </form>
+        <mat-action-row>
+          <button class="adjacent-button" mat-raised-button color="warn"
+            (click)="cancelUpdate(mep.expanded = false)">Cancel</button>
+          <button class="adjacent-button" mat-raised-button color="primary"
+            (click)="updateUser(mep.expanded = false)">Save</button>
+        </mat-action-row>
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            2-factor authentication
+          </mat-panel-title>
+          <mat-panel-description fxLayoutAlign="end">
+            Enable/disable TFA
+          </mat-panel-description>
+        </mat-expansion-panel-header>
 
-  </section> -->
-
-  <div class="settings" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
-    <mat-card>
-        <mat-card-title fxLayoutAlign="center center">Settings</mat-card-title>
-        <mat-accordion>
-            <mat-expansion-panel #mep="matExpansionPanel">
-                <mat-expansion-panel-header>
-                  <mat-panel-title>
-                    Account
-                  </mat-panel-title>
-                  <mat-panel-description fxLayoutAlign="end">
-                    Edit account info
-                  </mat-panel-description>
-                </mat-expansion-panel-header>
-                <form [formGroup]="userForm" fxLayout="column"  fxLayoutGap="5px">
-                  <mat-form-field>
-                      <input type="text" matInput onfocus="this.value=''" value="{{currentUser?.username}}" placeholder="{{currentUser?.username}}" formControlName="username">
-                  </mat-form-field>
-                  <mat-form-field>
-                      <input type="email" matInput onfocus="this.value=''" value={{currentUser?.email}} placeholder="{{currentUser?.email}}" formControlName="email">
-                  </mat-form-field>
-                </form>
-                <mat-action-row>
-                    <button class="adjacent-button" mat-raised-button color="warn" (click)="cancelUpdate(mep.expanded = false)">Cancel</button>
-                    <button class="adjacent-button" mat-raised-button color="primary" (click)="updateUser(mep.expanded = false)">Save</button>
-                </mat-action-row>
-            </mat-expansion-panel>
-            <mat-expansion-panel>
-                <mat-expansion-panel-header>
-                  <mat-panel-title>
-                    2-factor authentication 
-                  </mat-panel-title>
-                  <mat-panel-description fxLayoutAlign="end">
-                    Enable/disable TFA
-                  </mat-panel-description>
-                </mat-expansion-panel-header>
-
-                <app-tfa-settings #appTfaSettings ></app-tfa-settings>
-                <!-- <form fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="5px" [formGroup]="tfaForm" >
+        <app-tfa-settings #appTfaSettings></app-tfa-settings>
+        <!-- <form fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="5px" [formGroup]="tfaForm" >
                     <mat-form-field>
                       <input type="text" matInput placeholder="Auth code" formControlName="authCode" >
                       <mat-error *ngIf="tfaForm.controls['authCode'].hasError('required')">Auth code field is required</mat-error>
@@ -71,12 +47,14 @@
                     <button type="submit" mat-raised-button [disabled]="tfaForm.invalid" color="primary">Submit</button>
                 </form> -->
 
-                <mat-action-row>
-                  <button type="submit" mat-raised-button color="primary" (click)="tfaEnableVerify(appTfaSettings.tfaEnableForm.value.authCode)" *ngIf="!currentUser?.tfaEnabled">Enable</button>
-                  <button type="submit" mat-raised-button color="warn" (click)="tfaDisable()" *ngIf="currentUser?.tfaEnabled">Disable</button>
-                </mat-action-row>
-            </mat-expansion-panel>
-        </mat-accordion>
-    </mat-card>
-  </div>
-  
+        <mat-action-row>
+          <button type="submit" mat-raised-button color="primary"
+            (click)="tfaEnableVerify(appTfaSettings.tfaEnableForm.value.authCode)"
+            *ngIf="!currentUser?.tfaEnabled">Enable</button>
+          <button type="submit" mat-raised-button color="warn" (click)="tfaDisable()"
+            *ngIf="currentUser?.tfaEnabled">Disable</button>
+        </mat-action-row>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </mat-card>
+</div>

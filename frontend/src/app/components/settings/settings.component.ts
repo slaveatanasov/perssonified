@@ -35,7 +35,7 @@ export class SettingsComponent implements OnInit {
 
   }
 
-  updateUser() {
+  updateUser(arg) {
     console.log('updated')
     console.log(this.userForm.value);
     this.snackBar.open('User updated successfully.', 'Close', {
@@ -44,7 +44,7 @@ export class SettingsComponent implements OnInit {
     });
   }
 
-  cancelUpdate() {
+  cancelUpdate(arg) {
     console.log('canceled')
     this.userForm.reset(
       this.userForm = this.fb.group({

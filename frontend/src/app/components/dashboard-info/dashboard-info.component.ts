@@ -7,8 +7,11 @@ import { UserService } from '../../services/user.service';
   styleUrls: ['./dashboard-info.component.scss']
 })
 export class DashboardInfoComponent implements OnInit {
-  currentUser: any;
+  // currentUser: any;
   loading: boolean;
+
+  currentUserName: any;
+  currentUserDateCreated: any;
 
   constructor(private userService: UserService) { }
 
@@ -16,9 +19,12 @@ export class DashboardInfoComponent implements OnInit {
     this.loading = true;
     this.userService.getCurrentUser().subscribe(res => {
       console.log(res);
-      this.currentUser = res;
+      this.currentUserName = res.username;
+      this.currentUserDateCreated = res.createdAt;
       this.loading = false;
-    });
+    }, 
+      error => console.log(error)
+    );
   }
 
 }
