@@ -15,7 +15,10 @@ const getCurrentUser = async (req: Request, res: Response) => {
 	const decodedJwt: any = JWT.verify(jwtToken, secretOrKey);
 
 	await User.findOne({ where: { id: decodedJwt.id } })
-		.then(user => res.send(user));
+		.then(user => {
+			console.log(typeof user!.dataValues);
+			res.send(user!.dataValues)
+		});
 }
 
 const registerUser = async (req: Request, res: Response) => {

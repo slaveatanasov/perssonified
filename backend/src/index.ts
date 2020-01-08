@@ -4,7 +4,7 @@ const cors = require('cors');
 
 import { passportHandler } from './passport';
 
-import { sequelize } from '../src/sequelize';
+import { sequelize } from './sequelize';
 sequelize.models;
 
 import router from './routes/index';
