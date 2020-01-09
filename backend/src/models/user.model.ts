@@ -11,7 +11,6 @@ import {
 
 @Table
 export default class User extends Model<User> {
-
 	@PrimaryKey
 	@AutoIncrement
 	@Column({
@@ -60,5 +59,4 @@ export default class User extends Model<User> {
 		type: DataType.DATE
 	})
 	updatedAt!: Date;
-
 }

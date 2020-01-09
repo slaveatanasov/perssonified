@@ -1,9 +1,9 @@
-import { Request, Response, NextFunction } from 'express';
+import { RequestHandler } from 'express';
 import * as bcrypt from 'bcrypt';
 import * as JWT from 'jsonwebtoken';
 import { secretOrKey } from '../config';
 
-const speakeasy = require('speakeasy');
+import * as speakeasy from 'speakeasy';
 
 import User from '../models/user.model';
 
@@ -18,16 +18,14 @@ const signToken = (user: User) => {
   }, secretOrKey);
 }
 
-const login = async (req: Request, res: Response, next: NextFunction) => {
+const login: RequestHandler = async (req, res, next) => {
   try {
     const { email, password } = req.body;
-    const user = await User.findOne({ where: { email } });
-
+    const user = await User.findOne({ where: { email }});
     if (email && password) {
       if (user) {
         if (bcrypt.compareSync(password, user.password)) {
           if (!user.tfaEnabled) {
-            console.log(Math.floor(Date.now() / 1000))
             const jwtToken = signToken(user);
             res.send({
               status: 200,
@@ -41,13 +39,13 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
               });
             }
             let isVerified = speakeasy.totp.verify({
-              secret: user!.tfaSecret,
+              secret: user.tfaSecret,
               encoding: 'base32',
               token: req.body['tfaToken']
             });
 
             if (isVerified) {
-              const jwtToken = signToken(user!);
+              const jwtToken = signToken(user);
 
               res.send({
                 status: 200,

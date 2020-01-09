@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from 'express';
+import { RequestHandler } from 'express';
 import * as JWT from 'jsonwebtoken';
 const speakeasy = require('speakeasy');
 const QRCode = require('qrcode');
@@ -6,7 +6,7 @@ import { secretOrKey } from '../config';
 
 import User from '../models/user.model';
 
-const tfaSetup = async (req: Request, res: Response) => {
+const tfaSetup: RequestHandler = async (req, res) => {
   const jwtToken: any = req.headers.authorization;
   const decodedJwt: any = JWT.verify(jwtToken, secretOrKey);
 
@@ -35,7 +35,7 @@ const tfaSetup = async (req: Request, res: Response) => {
   });
 }
 
-const tfaFetch = async (req: Request, res: Response) => {
+const tfaFetch: RequestHandler = async (req, res) => {
   const jwtToken: any = req.headers.authorization;
   const decodedJwt: any = JWT.verify(jwtToken, secretOrKey);
 
@@ -43,7 +43,7 @@ const tfaFetch = async (req: Request, res: Response) => {
     .then(result => res.json(result ? result : null));
 }
 
-const tfaDelete = async (req: Request, res: Response) => {
+const tfaDelete: RequestHandler = async (req, res) => {
   const jwtToken: any = req.headers.authorization;
   const decodedJwt: any = JWT.verify(jwtToken, secretOrKey);
 
@@ -54,7 +54,7 @@ const tfaDelete = async (req: Request, res: Response) => {
   })
 }
 
-const tfaVerify = async (req: Request, res: Response) => {
+const tfaVerify: RequestHandler = async (req, res) => {
   const jwtToken: any = req.headers.authorization;
   const decodedJwt: any = JWT.verify(jwtToken, secretOrKey)
 

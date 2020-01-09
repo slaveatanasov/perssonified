@@ -1,7 +1,7 @@
 import { Sequelize } from 'sequelize-typescript';
 import { Op } from 'sequelize';
 
-// LOCAL DATABASE
+// Local Database:
 // export const sequelize = new Sequelize({
 // 	dialect: 'mysql',
 // 	database: process.env.DB_NAME!,
@@ -15,7 +15,7 @@ import { Op } from 'sequelize';
 // 	}
 // });
 
-// CLOUD DATABASE
+// Cloud Database:
 export const sequelize = new Sequelize({
 	dialect: 'mysql',
 	host: process.env.DB_CLOUD_HOST!,

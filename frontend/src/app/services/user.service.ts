@@ -8,15 +8,10 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class UserService {
-  
-
   constructor(private http: HttpClient, private authService: AuthService) {}
 
-  httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', }), responseType: 'text' as 'json' };
-
   getCurrentUser() {
-    return this.http.get<any>(`${environment.apiURL}/user/getCurrentUser`, this.httpOptions);
+    console.log(environment.apiURL);
+    return this.http.get<any>(`${environment.apiURL}/user/getCurrentUser`);
   }
-
-
 }

@@ -1,6 +1,6 @@
 import express, { Application } from 'express';
 import * as bodyParser from 'body-parser';
-const cors = require('cors');
+import cors from 'cors';
 
 import { passportHandler } from './passport';
 

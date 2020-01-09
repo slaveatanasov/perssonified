@@ -1,27 +1,26 @@
-import { Request, Response, NextFunction } from 'express';
+import { RequestHandler } from 'express';
 import * as bcrypt from 'bcrypt';
 import * as JWT from 'jsonwebtoken';
 
 import { secretOrKey } from '../config';
 import User from '../models/user.model';
 
-const findAllUsers = async (req: Request, res: Response) => {
+const findAllUsers: RequestHandler = async (req, res) => {
 	let users = await User.findAll();
 	res.send(users);
 }
 
-const getCurrentUser = async (req: Request, res: Response) => {
+const getCurrentUser: RequestHandler = async (req, res) => {
 	const jwtToken: any = req.headers.authorization;
 	const decodedJwt: any = JWT.verify(jwtToken, secretOrKey);
 
-	await User.findOne({ where: { id: decodedJwt.id } })
+	await User.findOne({ where: { id: decodedJwt.id }, attributes: { exclude: ['password', 'tfaSecret', 'tfaTempSecret'] } })
 		.then(user => {
-			console.log(typeof user!.dataValues);
-			res.send(user!.dataValues)
+			res.send(user)
 		});
 }
 
-const registerUser = async (req: Request, res: Response) => {
+const registerUser: RequestHandler = async (req, res) => {
 	try {
 		const { username, email, password, passwordConfirm } = req.body;
 		let errors: any[] = [];
@@ -48,14 +47,15 @@ const registerUser = async (req: Request, res: Response) => {
 							username,
 							email,
 							password,
+							tfaEnabled: false,
 							createdAt: Date.now()
 						}
-						bcrypt.genSalt(10, (err, salt) => {
+						bcrypt.genSalt(10, (_err, salt) => {
 							bcrypt.hash(newUser.password, salt, (err, hash) => {
 								if (err) throw err;
 								newUser.password = hash;
 								User.create(newUser)
-									.then(user => {
+									.then(_ => {
 										res.status(200).json({ message: 'User successfully registered.' });
 									})
 									.catch(err => errors.push(err));
@@ -69,7 +69,7 @@ const registerUser = async (req: Request, res: Response) => {
 	}
 }
 
-const updateUser = async (req: Request, res: Response) => {
+const updateUser: RequestHandler = async (req, res) => {
 	const jwtToken: any = req.headers.authorization;
 	const decodedJwt: any = JWT.verify(jwtToken, secretOrKey);
 
@@ -84,7 +84,7 @@ const updateUser = async (req: Request, res: Response) => {
 	}
 }
 
-const getUserById = async (req: Request, res: Response) => {
+const getUserById: RequestHandler = async (req, res) => {
 	if (req.params.id) {
 		let user = await User.findOne({ where: { id: req.params.id } });
 		res.send(user);
@@ -93,7 +93,7 @@ const getUserById = async (req: Request, res: Response) => {
 	}
 }
 
-const getUserByEmail = async (req: Request, res: Response) => {
+const getUserByEmail: RequestHandler = async (req, res) => {
 	if (req.params.email) {
 		let user = await User.findOne({ where: { email: req.params.email } });
 		res.send(user);
