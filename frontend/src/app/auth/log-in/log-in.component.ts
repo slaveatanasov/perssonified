@@ -40,9 +40,19 @@ export class LogInComponent implements OnInit {
           panelClass: 'login-snackbar',
           duration: 3000
         });
-      } else if (response.status === 200) {
+      }
+
+      if (response.status == 401) {
+        this.tfaFlag = true;
+        this.snackBar.open('Invalid entry, please try again.', 'Close', {
+          panelClass: 'login-snackbar',
+          duration: 3000
+        });
+      }
+      
+      if (response.status === 200) {
         if (this.authService.authChange) {
-          this.router.navigate(['/dashboard'])
+          this.router.navigate(['/'])
           this.snackBar.open('Successful login.', 'Close', {
             panelClass: 'login-snackbar',
             duration: 3000

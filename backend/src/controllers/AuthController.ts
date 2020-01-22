@@ -52,6 +52,11 @@ const login: RequestHandler = async (req, res, next) => {
                 message: "Successful two-factor verification login.",
                 accessToken: jwtToken
               });
+            } else {
+              res.send({
+                status: 401,
+                message: "Two-factor verification failed. Please try again.",
+              });
             }
           }
         } else {

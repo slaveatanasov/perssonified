@@ -1,4 +1,4 @@
-<section class="signup-form" fxLayout="column" fxLayoutAlign="center center">
+<section class="signup-form" fxLayout="row" fxLayoutAlign="center center" fxLayoutAlign.xs='center'>
   <!-- <form fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="5px" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
         <mat-form-field>
             <input type="text" matInput placeholder="Your username" formControlName="username" >
@@ -20,7 +20,7 @@
       <button type="submit" mat-raised-button [disabled]="registerForm.invalid" color="primary">Submit</button>
     </form> -->
 
-  <mat-card>
+  <mat-card fxFlex.gt-xs="450px" fxFlex.xs="0">
     <mat-card-title fxLayoutAlign="center center">Sign up</mat-card-title>
     <form fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="5px" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
       <mat-form-field>
