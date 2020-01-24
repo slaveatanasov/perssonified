@@ -28,9 +28,10 @@
         <mat-error *ngIf="registerForm.controls['username'].hasError('required')">Username field is required</mat-error>
       </mat-form-field>
       <mat-form-field>
-        <input type="email" matInput placeholder="Your email" email formControlName="email">
+        <input type="email" matInput placeholder="Your email" formControlName="email">
         <mat-error *ngIf="registerForm.controls['email'].hasError('required')">Email field is required</mat-error>
-        <mat-error *ngIf="registerForm.controls['email'].hasError('email')">Enter a valid email</mat-error>
+        <!-- <mat-error *ngIf="registerForm.controls['email'].hasError('email')">Enter a valid email</mat-error> -->
+        <mat-error *ngIf="registerForm.controls['email'].hasError('pattern')">Enter a valid email</mat-error>
       </mat-form-field>
       <mat-form-field>
         <input type="password" matInput placeholder="Your password" formControlName="password">

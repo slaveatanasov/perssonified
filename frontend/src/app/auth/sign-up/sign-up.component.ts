@@ -13,11 +13,12 @@ import { MatSnackBar } from '@angular/material';
 export class SignUpComponent implements OnInit {
   registerForm: FormGroup;
   returnUrl: string;
+  emailValidationPattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
   constructor(private authService: AuthService, fb: FormBuilder, private router: Router, private snackBar: MatSnackBar) {
     this.registerForm = fb.group({
       username: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.email]],
+      email: ['', [Validators.required, Validators.pattern(this.emailValidationPattern)]],
       password: ['', [Validators.required, Validators.minLength(8)]],
       passwordConfirm: ['', [Validators.required]]
     }, { validator: this.checkPasswords('password', 'passwordConfirm') });
@@ -46,6 +47,10 @@ export class SignUpComponent implements OnInit {
       });
     }
     )
+  }
+
+  validateEmail(email: string) {
+
   }
 
   checkPasswords(password: string, confirmPassword: string) {
