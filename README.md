@@ -1,0 +1,3 @@
+# perssonified
+
+A news aggregator customized for personal interests. Work in progress...
