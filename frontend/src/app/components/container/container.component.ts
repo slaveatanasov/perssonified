@@ -19,11 +19,7 @@ export class ContainerComponent implements OnInit {
   techNews: any[] = [];
   loading: boolean = false;
 
-
-
-  constructor(private http: HttpClient, private newsApiService: NewsApiService) {
-
-  }
+  constructor(private http: HttpClient, private newsApiService: NewsApiService) { }
 
   ngOnInit() {
     this.getMainNews();

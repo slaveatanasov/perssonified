@@ -3,17 +3,12 @@
 }
 
 .sidenav {
-  width: 200px;
+  width: 180px;
 }
 
 .sidenav .mat-toolbar {
   background: inherit;
-}
-
-.mat-toolbar.mat-primary {
-  position: sticky;
-  top: 0;
-  z-index: 1;
+  box-shadow: 0px 2px 8px -3px rgba(0, 0, 0, 0.4)
 }
 
 .hidden {
@@ -35,7 +30,6 @@ button {
 }
 
 button:hover {
-  border-radius: 0px;
   color: black;
 }
 
@@ -47,8 +41,6 @@ button:hover {
 
 mat-toolbar li {
   display: inline-block;
-  /* margin: 0 10px; */
-  /* color: rgb(26, 24, 24); */
   text-decoration: none;
 }
 
@@ -62,7 +54,6 @@ mat-toolbar li {
 }
 
 .app-title {
-  // color: rgb(26, 24, 24);
   color: #d58b91;
   margin-left: 8px;
   font-size: 1.25rem;
@@ -94,7 +85,7 @@ li {
 }
 
 .logo-image {
-  height: 52px;
+  height: 48px;
   display: flex;
 }
 
@@ -102,4 +93,18 @@ li {
   display: flex;
   align-items: center;
   margin-left: 56px;
+}
+
+::ng-deep .mat-list-item-content {
+  padding: 0 !important;
+}
+
+::ng-deep .mat-list-item-content button {
+  width: 100%;
+  transition: 0.1s ease-in;
+  text-align: left;
+}
+
+::ng-deep .mat-list-item-content .mat-button {
+  font-size: 1rem;
 }

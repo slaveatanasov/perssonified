@@ -20,6 +20,7 @@ export class LogInComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]]
     });
+
     this.tfaForm = fb.group({
       token: ['', [Validators.required]]
     });
@@ -49,14 +50,14 @@ export class LogInComponent implements OnInit {
           duration: 3000
         });
       }
-      
+
       if (response.status === 200) {
         if (this.authService.authChange) {
           this.router.navigate(['/'])
           this.snackBar.open('Successful login.', 'Close', {
             panelClass: 'login-snackbar',
             duration: 3000
-          })
+          });
         }
       }
     }, (error) => {

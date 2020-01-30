@@ -2,43 +2,45 @@
   <mat-sidenav #drawer class="sidenav" fixedInViewport [ngClass]="{hidden: !(isHandset$ | async)}"
     [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'over' : 'side'"
     [opened]="(isHandset$ | async) === false">
-    <mat-toolbar>Menu</mat-toolbar>
+    <mat-toolbar>peRSSonified</mat-toolbar>
     <mat-nav-list>
-      <a mat-list-item routerLink="/signup" (click)="drawer.close()" *ngIf="!isAuth">
-        <mat-icon>face</mat-icon>
-        <span class="nav-caption">Sign Up</span>
-      </a>
-      <a mat-list-item routerLink="/login" (click)="drawer.close()" *ngIf="!isAuth">
-        <mat-icon>input</mat-icon>
-        <span class="nav-caption">Log In</span>
-      </a>
-      <mat-list-item *ngIf="isAuth">
-        <a routerLink="/dashboard" (click)="drawer.close()">
+      <mat-list-item *ngIf="!isAuth">
+        <button mat-icon-button routerLink="/signup" (click)="drawer.close()">
+          <mat-icon>face</mat-icon>
+          <span class="nav-caption">Sign Up</span>
+        </button>
+      </mat-list-item>
+      <mat-list-item *ngIf="!isAuth">
+        <button mat-icon-button routerLink="/login" (click)="drawer.close()">
           <mat-icon>input</mat-icon>
-          <span class="nav-caption">Dashboard</span>
-        </a>
+          <span class="nav-caption">Log In</span>
+        </button>
       </mat-list-item>
       <mat-list-item *ngIf="isAuth">
-          <a routerLink="/settings" (click)="drawer.close()">
-            <mat-icon>input</mat-icon>
-            <span class="nav-caption">Settings</span>
-          </a>
-        </mat-list-item>
+        <button mat-button routerLink="/dashboard" (click)="drawer.close()">
+          <mat-icon>input</mat-icon>
+          <span class="nav-caption">Dashboard</span>
+        </button>
+      </mat-list-item>
       <mat-list-item *ngIf="isAuth">
-        <button mat-icon-button (click)="drawer.close() && onLogout()">
+        <button mat-button routerLink="/settings" (click)="drawer.close()">
+          <mat-icon>input</mat-icon>
+          <span class="nav-caption">Settings</span>
+        </button>
+      </mat-list-item>
+      <mat-list-item *ngIf="isAuth">
+        <button mat-button (click)="drawer.close() && onLogout()">
           <mat-icon>eject</mat-icon>
-          <span class="custom-btn" class="nav-caption">Logout</span>
+          <span class="nav-caption">Logout</span>
         </button>
       </mat-list-item>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
     <mat-toolbar class="mat-toolbar-color">
-      <button type="button" aria-label="Toggle sidenav" mat-button (click)="drawer.toggle()"
-        *ngIf="isHandset$ | async">
+      <button type="button" aria-label="Toggle sidenav" mat-button (click)="drawer.toggle()" *ngIf="isHandset$ | async">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <!-- <a routerLink="/"><span class="app-title">peRSSonified</span></a> -->
       <a routerLink="/">
         <div class="logo-title">
           <img class="logo-image" src="../../assets/img/perssonifiedLogo.png">

@@ -49,10 +49,6 @@ export class SignUpComponent implements OnInit {
     )
   }
 
-  validateEmail(email: string) {
-
-  }
-
   checkPasswords(password: string, confirmPassword: string) {
     return (group: FormGroup) => {
       let passwordInput = group.controls[password],
