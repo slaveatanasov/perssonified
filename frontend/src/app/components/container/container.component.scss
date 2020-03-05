@@ -1,28 +1,10 @@
 .gallery-card {
-  /* padding: 100px; */
-  /* min-height: 100%;
-    width: 100%;
-    background-color: rgb(220, 223, 196);
-    padding: 3rem; */
-
-  /* display: flex;
-    width: 100%;
-    height: 100%; */
-
-  /* border: 1px solid black; */
-
-  /* flex-direction: row;
-    justify-content: center;
-    align-items: center; */
-  // display: flex;
   min-width: 500px;
   max-width: 500px;
   height: 100%;
 }
 
 .gallery-card-alt {
-  // min-width: 500px;
-  // max-width: 500px;
   height: 100%;
 }
 
@@ -31,10 +13,6 @@
 }
 
 mat-card {
-  /* height: 500px;
-  border-radius: 0px;
-  margin: 10px; */
-  // margin-right: 15px;
   border-radius: 0px;
   box-sizing: border-box;
   height: 100%;
@@ -51,7 +29,6 @@ mat-card-content p {
   padding: 8rem;
   padding-top: 0;
   padding-bottom: 4rem;
-  /* overflow: hidden; */
 }
 
 .grid-tile-1,
@@ -68,10 +45,6 @@ mat-card-content p {
   display: flex;
   flex-direction: column;
   align-self: flex-start;
-}
-
-mat-grid-tile {
-  // background-color: rgb(231, 231, 238);
 }
 
 .card-image {
@@ -98,7 +71,6 @@ drag-scroll {
   list-style: none;
   justify-content: center;
   background: linear-gradient(45deg, #f3f3f30f, #074e2d14, #f3f3f30f);
-  /* padding: 15px 200px; */
   color: darkgray;
   height: 100%;
   align-items: center;
@@ -126,9 +98,7 @@ drag-scroll {
   text-align: center;
   font-size: 10rem;
   font-style: italic;
-  // background-color: #e23f3f2b;
   color: #131313bf;
-  // box-shadow: 0 0 20px 0px #00000000;
 }
 
 .page-title i {

@@ -5,7 +5,7 @@ import { Subject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material';
 
-import { UserRegister, UserLogin } from '../models/auth/user.model';
+import { UserRegister, UserLogin } from '../models/user.model';
 import { environment } from 'src/environments/environment';
 
 
@@ -15,7 +15,7 @@ import { environment } from 'src/environments/environment';
 export class AuthService {
 
   private userRegister: UserRegister;
-  private userLogin: any;
+  private userLogin: UserLogin;
 
   authChange = new Subject<boolean>();
 
@@ -25,8 +25,8 @@ export class AuthService {
     return localStorage.getItem('jwtToken');
   }
 
-  registerUser(data: UserRegister) {
-    let { username, email, password, passwordConfirm } = data;
+  registerUser(user: UserRegister) {
+    let { username, email, password, passwordConfirm } = user;
     this.userRegister = {
       username,
       email,
@@ -45,23 +45,24 @@ export class AuthService {
     }
   }
 
-  loginUser(data) {
-    let { email, password, tfaToken } = data;
+  loginUser(user: UserLogin) {
+    let { email, password, tfaToken } = user;
     this.userLogin = {
       email,
       password,
       tfaToken
     };
 
-    return this.http.post<any>(`${environment.apiURL}/auth/login`, this.userLogin).pipe(
-      tap(response => {
-        if (response.status === 200) {
-          let token = response.accessToken;
-          localStorage.setItem('jwtToken', token)
-          this.authChange.next(true);
-        };
-      })
-    )
+    return this.http.post<any>(`${environment.apiURL}/auth/login`, this.userLogin)
+      .pipe(
+        tap(response => {
+          if (response.status === 200) {
+            let token = response.accessToken;
+            localStorage.setItem('jwtToken', token)
+            this.authChange.next(true);
+          };
+        })
+      )
   }
 
   logout() {

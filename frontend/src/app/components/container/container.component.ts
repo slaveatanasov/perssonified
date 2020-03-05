@@ -1,13 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
 import { NewsApiService } from '../../services/news-api.service';
-import { filter, map, subscribeOn } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
-// import { SwiperComponent, SwiperDirective, SwiperConfigInterface,
-//   SwiperScrollbarInterface, SwiperPaginationInterface } from 'ngx-swiper-wrapper';
-import { NguCarouselConfig } from '@ngu/carousel';
-import { MatProgressBar } from '@angular/material'
+import { Articles } from '../../models/data.model';
 
 @Component({
   selector: 'app-container',
@@ -15,11 +10,11 @@ import { MatProgressBar } from '@angular/material'
   styleUrls: ['./container.component.scss']
 })
 export class ContainerComponent implements OnInit {
-  mainNews: any[] = [];
-  techNews: any[] = [];
+  mainNews: Articles[];
+  techNews: Articles[];
   loading: boolean = false;
 
-  constructor(private http: HttpClient, private newsApiService: NewsApiService) { }
+  constructor(private newsApiService: NewsApiService) { }
 
   ngOnInit() {
     this.getMainNews();
@@ -28,24 +23,24 @@ export class ContainerComponent implements OnInit {
 
   getMainNews() {
     this.loading = true;
-    this.newsApiService.getData()
-      .pipe(map(results => {
-        return results.articles;
+    this.newsApiService.getMainNews()
+      .pipe(map(data => {
+        return data.articles;
       }))
-      .subscribe((res) => {
-        this.mainNews = res;
+      .subscribe(articles => {
+        this.mainNews = articles;
         this.loading = false;
       })
   }
 
   getTechNews() {
     this.loading = true;
-    this.newsApiService.getData2()
-      .pipe(map((results) => {
-        return results.articles;
+    this.newsApiService.getTechNews()
+      .pipe(map(data => {
+        return data.articles;
       }))
-      .subscribe((res) => {
-        this.techNews = res;
+      .subscribe(articles => {
+        this.techNews = articles;
         this.loading = false;
       })
   }

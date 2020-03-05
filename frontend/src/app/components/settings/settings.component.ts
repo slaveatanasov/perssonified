@@ -1,11 +1,13 @@
-import { Component, OnInit, Input, Output } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms'
 
 import { UserService } from '../../services/user.service';
 import { TfaService } from '../../services/tfa.service';
 import { MatSnackBar } from '@angular/material';
 
 import { Router } from '@angular/router';
+
+import { User } from '../../models/user.model';
 
 @Component({
   selector: 'app-settings',
@@ -14,7 +16,7 @@ import { Router } from '@angular/router';
 })
 export class SettingsComponent implements OnInit {
   userForm: FormGroup;
-  currentUser: any;
+  currentUser: User;
 
   constructor(private userService: UserService, private TfaService: TfaService, private fb: FormBuilder, private router: Router, private snackBar: MatSnackBar) {
     this.userForm = fb.group({
@@ -24,9 +26,8 @@ export class SettingsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.userService.getCurrentUser().subscribe(res => {
-      this.currentUser = res;
-      console.log(this.currentUser);
+    this.userService.getCurrentUser().subscribe(user => {
+      this.currentUser = user;
       this.userForm = this.fb.group({
         username: [this.currentUser.username, [Validators.required]],
         email: [this.currentUser.email, [Validators.required]]

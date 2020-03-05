@@ -6,9 +6,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class TfaService {
-
-  constructor(private http: HttpClient) {
-  }
+  constructor(private http: HttpClient) {}
 
   tfaEnable() {
     return this.http.post<any>(`${environment.apiURL}/tfa/setup`, {});

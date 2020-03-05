@@ -3,7 +3,6 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AuthService } from '../services/auth.service';
-import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-main-nav',
@@ -11,7 +10,6 @@ import { UserService } from '../services/user.service';
   styleUrls: ['./main-nav.component.scss']
 })
 export class MainNavComponent implements OnInit, OnDestroy {
-  currentUser: any;
   authSubscription: Subscription;
   isAuth: boolean;
 
@@ -20,14 +18,11 @@ export class MainNavComponent implements OnInit, OnDestroy {
       map(result => result.matches)
     );
 
-  constructor(private breakpointObserver: BreakpointObserver, private authService: AuthService, private userService: UserService) {
-  }
+  constructor(private breakpointObserver: BreakpointObserver, private authService: AuthService) {
+}
 
   ngOnInit() {
-    this.currentUser = this.userService.getCurrentUser();
-    this.authSubscription = this.authService.authChange.subscribe(authStatus => {
-      this.isAuth = authStatus;
-    });
+    this.authSubscription = this.authService.authChange.subscribe(authStatus => this.isAuth = authStatus);
     this.authService.persistLogin();
   }
 

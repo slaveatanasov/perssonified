@@ -7,20 +7,17 @@ import { UserService } from '../../services/user.service';
   styleUrls: ['./dashboard-info.component.scss']
 })
 export class DashboardInfoComponent implements OnInit {
-  // currentUser: any;
   loading: boolean;
-
-  currentUserName: any;
-  currentUserDateCreated: any;
+  currentUsername: any;
+  currentUserCreatedAt: any;
 
   constructor(private userService: UserService) { }
 
   ngOnInit() {
     this.loading = true;
-    this.userService.getCurrentUser().subscribe(res => {
-      console.log(res);
-      this.currentUserName = res.username;
-      this.currentUserDateCreated = res.createdAt;
+    this.userService.getCurrentUser().subscribe(user => {
+      this.currentUsername = user.username;
+      this.currentUserCreatedAt = user.createdAt;
       this.loading = false;
     }, 
       error => console.log(error)

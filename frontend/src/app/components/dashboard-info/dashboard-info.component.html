@@ -4,18 +4,18 @@
       <mat-spinner diameter="50" strokeWidth="5"></mat-spinner>
     </div>
     <mat-card-title fxLayoutAlign="center center" *ngIf="!loading">
-      Hi, {{currentUserName}}
+      Hi, {{currentUsername}}
     </mat-card-title>
     <mat-card-content *ngIf="!loading">
       <div>
         <ul>
           <li>
             <h4>Username:</h4>
-            <span>{{currentUserName}}</span>
+            <span>{{currentUsername}}</span>
           </li>
           <li>
             <h4>Date joined:</h4>
-            <span>{{currentUserDateCreated | date}}</span>
+            <span>{{currentUserCreatedAt | date}}</span>
           </li>
         </ul>
       </div>
