@@ -1,6 +1,6 @@
 @import '~@angular/material/theming';
 
-$custom-typography: mat-typography-config($font-family: '"Open Sans", sans-serif;');
+$custom-typography: mat-typography-config($font-family: '"Arimo", sans-serif;');
 @include mat-core($custom-typography);
 
 $custom-primary: mat-palette($mat-blue);
@@ -11,6 +11,7 @@ $custom-theme: mat-light-theme($custom-primary, $custom-accent);
 html, body { 
     height: 100%; 
 }
+
 body { 
     margin: 0; 
     /* font-family: Roboto, "Helvetica Neue", sans-serif;  */

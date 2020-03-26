@@ -14,10 +14,10 @@ import { JwtInterceptor } from './services/jwt.interceptor';
 import { AuthService } from './services/auth.service';
 
 import { AppComponent } from './app.component';
-import { MainNavComponent } from './main-nav/main-nav.component';
+import { NavigationComponent } from './navigation/navigation.component';
 import { ContainerComponent } from './components/container/container.component';
-import { SignUpComponent } from './auth/sign-up/sign-up.component';
-import { LogInComponent } from './auth/log-in/log-in.component';
+import { SignUpComponent } from './components/sign-up/sign-up.component';
+import { LogInComponent } from './components/log-in/log-in.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { TfaSettingsComponent } from './components/tfa-settings/tfa-settings.component';
@@ -26,7 +26,7 @@ import { DashboardInfoComponent } from './components/dashboard-info/dashboard-in
 @NgModule({
   declarations: [
     AppComponent,
-    MainNavComponent,
+    NavigationComponent,
     ContainerComponent,
     SignUpComponent,
     LogInComponent,

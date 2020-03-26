@@ -1,9 +1,9 @@
 import { Router } from 'express';
 import passport from 'passport';
 
-const tfaController = require('../controllers/TfaController');
+import * as tfaController from '../controllers/TfaController';
 
-const router = Router();
+const router: Router = Router();
 
 router.post('/setup', passport.authenticate('jwt', { session: false }), tfaController.tfaSetup);
 router.get('/setup', passport.authenticate('jwt', { session: false }), tfaController.tfaFetch);

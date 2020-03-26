@@ -5,8 +5,7 @@ import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class ApiKeyInterceptor implements HttpInterceptor {
-	constructor() {
-	}
+	constructor() {}
 
 	intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 		const req = request.clone({

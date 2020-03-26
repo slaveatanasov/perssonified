@@ -17,12 +17,14 @@ import { User } from '../../models/user.model';
 export class SettingsComponent implements OnInit {
   userForm: FormGroup;
   currentUser: User;
+  editableUsername: boolean = false;
+  editableEmail: boolean = false;
 
   constructor(private userService: UserService, private TfaService: TfaService, private fb: FormBuilder, private router: Router, private snackBar: MatSnackBar) {
-    this.userForm = fb.group({
+    this.userForm = this.fb.group({
       username: ["", [Validators.required]],
       email: ["", [Validators.required]]
-    });
+    })
   }
 
   ngOnInit() {
@@ -36,13 +38,30 @@ export class SettingsComponent implements OnInit {
 
   }
 
-  updateUser(arg) {
-    console.log('updated')
-    console.log(this.userForm.value);
-    this.snackBar.open('User updated successfully.', 'Close', {
-      panelClass: 'login-snackbar',
-      duration: 5000
-    });
+  toggleEditableUsername() {
+    this.editableUsername = !this.editableUsername;
+  }
+
+  toggleEditableEmail() {
+    this.editableEmail = !this.editableEmail;
+  }
+
+  updateUser() {
+    if(this.userForm.valid) {
+      this.userService.updateUser(this.userForm.value.username, this.userForm.value.email).subscribe(res => {
+        if (res.updated) {
+          this.snackBar.open('User updated successfully.', 'Close', {
+          panelClass: 'login-snackbar',
+          duration: 5000
+        });
+        } else {
+          this.snackBar.open('User info remains unchanged.', 'Close', {
+            panelClass: 'login-snackbar',
+            duration: 5000
+          });
+        }
+      });
+    }
   }
 
   cancelUpdate(arg) {

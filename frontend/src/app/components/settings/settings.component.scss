@@ -1,12 +1,36 @@
 .settings {
-    padding-top: 10vh;
+  padding-top: 10vh;
 }
 
 mat-card {
-    width: 35vw;
-    padding: 2rem;
+  width: 35vw;
+  padding: 2rem;
 }
 
 .adjacent-button {
-    margin-left: 1rem;
+  margin-left: 1rem;
+}
+
+.mat-form-field {
+  width: 90%;
+}
+
+.field-row-buttons {
+  margin-left: 1rem;
+}
+
+.stroked-btn:nth-child(odd) {
+  margin-right: 0.5rem;
+}
+
+.testing {
+  background-color: white;
+  border: 1px solid rgba(0, 0, 0, 0.041);
+  border-radius: 5px;
+  height: 55px;
+}
+
+.testing:hover {
+  background-color: rgba(0, 0, 0, 0.041);
+  cursor: pointer;
 }

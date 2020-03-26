@@ -4,10 +4,10 @@ import auth from './authRoutes';
 import user from './userRoutes';
 import tfa from './tfaRoutes';
 
-const router = Router();
+const router: Router = Router();
 
 router.get('/', (req: Request, res: Response, next: NextFunction) => {
-  res.send('Express works...')
+  res.send('API works...')
 });
 router.use('/auth', auth);
 router.use('/user', user);

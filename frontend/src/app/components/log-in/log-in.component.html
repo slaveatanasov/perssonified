@@ -1,0 +1,31 @@
+<section class="login-form" fxLayout="row" fxLayoutAlign="center center" fxLayoutAlign.xs='center'>
+
+  <mat-card *ngIf="!tfaFlag" fxFlex.gt-xs="450px" fxFlex.xs="0">
+    <mat-card-title fxLayoutAlign="center center">Log in</mat-card-title>
+    <form fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="5px" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <mat-form-field>
+        <input type="email" matInput placeholder="Your email" name="email" email formControlName="email">
+        <mat-error *ngIf="loginForm.controls['email'].hasError('required')">Email field is required</mat-error>
+        <mat-error *ngIf="loginForm.controls['email'].hasError('email')">Enter a valid email</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input type="password" matInput placeholder="Your password" placeholder="Your password"
+          formControlName="password">
+        <mat-error *ngIf="loginForm.controls['password'].hasError('required')">Password field is required</mat-error>
+      </mat-form-field>
+      <button type="submit" mat-raised-button [disabled]="loginForm.invalid" color="primary">Submit</button>
+    </form>
+  </mat-card>
+
+  <mat-card *ngIf="tfaFlag" fxFlex.gt-xs="450px" fxFlex.xs="0">
+    <mat-card-title fxLayoutAlign="center center">Enter Google Authenticator Code</mat-card-title>
+    <form fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="5px" [formGroup]="tfaForm" (ngSubmit)="onSubmit()">
+      <mat-form-field>
+        <input matInput placeholder="Enter code" formControlName="token">
+        <mat-error *ngIf="tfaForm.controls['token'].hasError('required')">Token field is required</mat-error>
+      </mat-form-field>
+      <button type="submit" mat-raised-button [disabled]="tfaForm.invalid" color="primary">Submit</button>
+    </form>
+  </mat-card>
+
+</section>

@@ -13,16 +13,14 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class AuthService {
-
   private userRegister: UserRegister;
   private userLogin: UserLogin;
-
-  authChange = new Subject<boolean>();
+  public authChange = new Subject<boolean>();
 
   constructor(private router: Router, private http: HttpClient, private snackBar: MatSnackBar) { }
 
-  getJwtToken() {
-    return localStorage.getItem('jwtToken');
+  getJWT() {
+    return localStorage.getItem('jwtData');
   }
 
   registerUser(user: UserRegister) {
@@ -37,7 +35,7 @@ export class AuthService {
   }
 
   persistLogin() {
-    const loggedIn = localStorage.getItem('jwtToken');
+    const loggedIn = localStorage.getItem('jwtData');
     if (!loggedIn) {
       return;
     } else {
@@ -58,7 +56,7 @@ export class AuthService {
         tap(response => {
           if (response.status === 200) {
             let token = response.accessToken;
-            localStorage.setItem('jwtToken', token)
+            localStorage.setItem('jwtData', token)
             this.authChange.next(true);
           };
         })
@@ -68,7 +66,7 @@ export class AuthService {
   logout() {
     this.userLogin = null;
     this.authChange.next(false);
-    localStorage.removeItem('jwtToken');
+    localStorage.removeItem('jwtData');
     this.router.navigate(['/login']);
 
     this.snackBar.open('You are logged out.', 'Close', {
@@ -78,7 +76,7 @@ export class AuthService {
   }
 
   isJwtAuth(): boolean {
-    if (localStorage.getItem('jwtToken') !== null) {
+    if (localStorage.getItem('jwtData') !== null) {
       return true;
     }
   }

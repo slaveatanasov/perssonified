@@ -12,3 +12,13 @@
   margin-left: 18px;
   font-weight: bold;
 }
+
+@media (max-width: 957px) {
+  .page-title {
+    font-size: 15vw;
+  }
+
+  .page-title i {
+    font-size: 7.5vw;
+  }
+}

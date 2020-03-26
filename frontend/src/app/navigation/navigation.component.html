@@ -1,0 +1,75 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport [ngClass]="{hidden: !(isHandset$ | async)}"
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="(isHandset$ | async) === false">
+    <mat-toolbar>peRSSonified</mat-toolbar>
+    <mat-nav-list>
+      <mat-list-item *ngIf="!isAuth">
+        <button mat-icon-button routerLink="/signup" (click)="drawer.close()">
+          <mat-icon>face</mat-icon>
+          <span class="nav-caption">Sign Up</span>
+        </button>
+      </mat-list-item>
+      <mat-list-item *ngIf="!isAuth">
+        <button mat-icon-button routerLink="/login" (click)="drawer.close()">
+          <mat-icon>input</mat-icon>
+          <span class="nav-caption">Log In</span>
+        </button>
+      </mat-list-item>
+      <mat-list-item *ngIf="isAuth">
+        <button mat-button routerLink="/dashboard" (click)="drawer.close()">
+          <mat-icon>input</mat-icon>
+          <span class="nav-caption">Dashboard</span>
+        </button>
+      </mat-list-item>
+      <mat-list-item *ngIf="isAuth">
+        <button mat-button routerLink="/settings" (click)="drawer.close()">
+          <mat-icon>input</mat-icon>
+          <span class="nav-caption">Settings</span>
+        </button>
+      </mat-list-item>
+      <mat-list-item *ngIf="isAuth">
+        <button mat-button (click)="drawer.close() && onLogout()">
+          <mat-icon>eject</mat-icon>
+          <span class="nav-caption">Logout</span>
+        </button>
+      </mat-list-item>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar class="mat-toolbar-color">
+      <button type="button" aria-label="Toggle sidenav" mat-button (click)="drawer.toggle()" *ngIf="isHandset$ | async">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <a routerLink="/">
+        <div class="logo-title">
+          <img class="logo-image" src="../../assets/img/perssonifiedLogo.png">
+          <span class="app-title">PERSSONIFIED</span>
+        </div>
+      </a>
+      <span class="spacer"></span>
+      <div fxHide.xs class="toolbar-btns">
+        <mat-menu #menu="matMenu" xPosition="before">
+          <button mat-menu-item routerLink="/dashboard">Dashboard</button>
+          <button mat-menu-item routerLink="/settings">Settings</button>
+        </mat-menu>
+        <ul>
+          <li *ngIf="isAuth">
+            <button mat-button [matMenuTriggerFor]="menu">Account</button>
+          </li>
+          <li routerLink="/signup" *ngIf="!isAuth">
+            <button mat-button>Sign up</button>
+          </li>
+          <li routerLink="/login" *ngIf="!isAuth">
+            <button mat-button>Log in</button>
+          </li>
+          <li *ngIf="isAuth" (click)="onLogout()">
+            <button mat-button>Log out</button>
+          </li>
+        </ul>
+      </div>
+    </mat-toolbar>
+    <!-- Add ng-content to project all other components here, so they can be wrapped by the nav container.. or when using the router add the router-outlet. -->
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

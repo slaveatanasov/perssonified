@@ -1,0 +1,26 @@
+<section class="signup-form" fxLayout="row" fxLayoutAlign="center center" fxLayoutAlign.xs='center'>
+  <mat-card fxFlex.gt-xs="450px" fxFlex.xs="0">
+    <mat-card-title fxLayoutAlign="center center">Sign up</mat-card-title>
+    <form fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="5px" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <mat-form-field>
+        <input type="text" matInput placeholder="Your username" formControlName="username">
+        <mat-error *ngIf="registerForm.controls['username'].hasError('required')">Username field is required</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input type="email" matInput placeholder="Your email" formControlName="email">
+        <mat-error *ngIf="registerForm.controls['email'].hasError('required')">Email field is required</mat-error>
+        <mat-error *ngIf="registerForm.controls['email'].hasError('pattern')">Enter a valid email</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input type="password" matInput placeholder="Your password" formControlName="password">
+        <mat-error *ngIf="registerForm.controls['password'].hasError('required')">Password field is required</mat-error>
+        <mat-error *ngIf="registerForm.controls['password'].hasError('minlength')">Password must be at least 8 characters</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input type="password" matInput placeholder="Confirm password" formControlName="passwordConfirm" validateEqual="password">
+        <mat-error *ngIf="registerForm.controls['passwordConfirm'].hasError('notEquivalent')">Passwords do not match</mat-error>
+      </mat-form-field>
+      <button type="submit" mat-raised-button [disabled]="registerForm.invalid" color="primary">Submit</button>
+    </form>
+  </mat-card>
+</section>
