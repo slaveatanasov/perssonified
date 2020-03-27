@@ -17,10 +17,10 @@
         <mat-progress-bar mode="indeterminate"></mat-progress-bar>
       </div>
       <div class="gallery-card" *ngFor="let item of mainNews; let i = index">
-        <mat-card *ngIf="i %1 == 0">
+        <mat-card *ngIf="i % 1 == 0">
           <mat-card-title>{{item.title}}</mat-card-title>
           <mat-card-content>
-            <p *ngIf="item.content">{{item.content}}</p>
+            <p *ngIf="item.content; else noContent">{{item.content}}</p>
             <div *ngIf="item.urlToImage; else noImage" class="card-image"
               [style.background-image]="'url('+item.urlToImage+')'"></div>
             <div class="card-footer">
@@ -41,7 +41,7 @@
           <mat-card *ngIf="i % 1 == 0">
             <mat-card-title>{{item.title}}</mat-card-title>
             <mat-card-content>
-              <p *ngIf="item.content">{{item.content}}</p>
+              <p *ngIf="item.content; else noContent">{{item.content}}</p>
               <div *ngIf="item.urlToImage; else noImage" class="card-image"
                 [style.background-image]="'url('+item.urlToImage+')'"></div>
               <div class="card-footer">
@@ -63,7 +63,7 @@
           <mat-card *ngIf="i % 1 == 0">
             <mat-card-title>{{item.title}}</mat-card-title>
             <mat-card-content>
-              <p *ngIf="item.content">{{item.content}}</p>
+              <p *ngIf="item.content; else noContent">{{item.content}}</p>
               <div *ngIf="item.urlToImage; else noImage" class="card-image"
                 [style.background-image]="'url('+item.urlToImage+')'"></div>
               <div class="card-footer">
@@ -81,10 +81,10 @@
         <mat-progress-bar mode="indeterminate"></mat-progress-bar>
       </div>
       <div class="gallery-card" *ngFor="let item of mainNews; let i = index">
-        <mat-card *ngIf="i %1 == 0">
+        <mat-card *ngIf="i % 1 == 0">
           <mat-card-title>{{item.title}}</mat-card-title>
           <mat-card-content>
-            <p *ngIf="item.content">{{item.content}}</p>
+            <p *ngIf="item.content; else noContent">{{item.content}}</p>
             <div *ngIf="item.urlToImage; else noImage" class="card-image"
               [style.background-image]="'url('+item.urlToImage+')'"></div>
             <div class="card-footer">
@@ -103,8 +103,14 @@
   <span>Copyright Slave Atanasov 2020 - All rights reserved. </span>
 </div>
 
+<ng-template #noContent>
+  <p style="font-style: italic;">No content for this section available at this moment.</p>
+</ng-template>
+
 <ng-template #noImage>
   <img src="../../../assets/img/no-image-available.jpg" class="card-image">
 </ng-template>
 
-<ng-template #noAuthor>Author: Unknown</ng-template>
+<ng-template #noAuthor>
+  <span>Author: <span style="font-style: italic;">Unknown</span></span>
+</ng-template>

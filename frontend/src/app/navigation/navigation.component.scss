@@ -1,5 +1,6 @@
 .sidenav-container {
   height: 100%;
+  overflow: hidden;
 }
 
 .sidenav {
@@ -107,4 +108,10 @@ li {
 
 ::ng-deep .mat-list-item-content .mat-button {
   font-size: 1rem;
+}
+
+mat-icon {
+  height: inherit;
+  width: inherit;
+  font-size: 18px;
 }

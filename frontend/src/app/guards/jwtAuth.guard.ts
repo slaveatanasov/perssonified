@@ -13,4 +13,5 @@ export class JwtAuthGuard implements CanActivate {
 			this.router.navigate(['/login']);
 		}
 	}
+	
 }

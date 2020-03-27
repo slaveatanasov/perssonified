@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { NewsApiService } from '../../services/news-api.service';
-import { map } from 'rxjs/operators';
 
 import { Articles } from '../../models/data.model';
 
@@ -14,7 +13,7 @@ export class ContainerComponent implements OnInit {
   techNews: Articles[];
   loading: boolean = false;
 
-  constructor(private newsApiService: NewsApiService) { }
+  constructor(private newsApiService: NewsApiService) {}
 
   ngOnInit() {
     this.getMainNews();
@@ -23,26 +22,18 @@ export class ContainerComponent implements OnInit {
 
   getMainNews() {
     this.loading = true;
-    this.newsApiService.getMainNews()
-      .pipe(map(data => {
-        return data.articles;
-      }))
-      .subscribe(articles => {
-        this.mainNews = articles;
-        this.loading = false;
-      })
+    this.newsApiService.getMainNews().subscribe(articles => {
+      this.mainNews = articles;
+      this.loading = false;
+    });
   }
 
   getTechNews() {
     this.loading = true;
-    this.newsApiService.getTechNews()
-      .pipe(map(data => {
-        return data.articles;
-      }))
-      .subscribe(articles => {
-        this.techNews = articles;
-        this.loading = false;
-      })
+    this.newsApiService.getTechNews().subscribe(articles => {
+      this.techNews = articles;
+      this.loading = false;
+    });
   }
-
+  
 }

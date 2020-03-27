@@ -11,8 +11,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { ApiKeyInterceptor } from './services/api-key.interceptor';
 import { JwtInterceptor } from './services/jwt.interceptor';
 
-import { AuthService } from './services/auth.service';
-
 import { AppComponent } from './app.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { ContainerComponent } from './components/container/container.component';
@@ -47,9 +45,8 @@ import { DashboardInfoComponent } from './components/dashboard-info/dashboard-in
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ApiKeyInterceptor, multi: true }, 
-    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-     AuthService
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

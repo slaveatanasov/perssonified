@@ -8,10 +8,10 @@ import { UserService } from '../../services/user.service';
 })
 export class DashboardInfoComponent implements OnInit {
   loading: boolean;
-  currentUsername: any;
-  currentUserCreatedAt: any;
+  currentUsername: string;
+  currentUserCreatedAt: string;
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService) {}
 
   ngOnInit() {
     this.loading = true;
