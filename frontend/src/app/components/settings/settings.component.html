@@ -12,62 +12,55 @@
           </mat-panel-description>
         </mat-expansion-panel-header>
         <form [formGroup]="userForm" fxLayout="column" fxLayoutGap="5px">
-          <div class="testing" fxLayout="row" fxLayoutAlign="center center" *ngIf="!editableUsername" (click)="toggleEditableUsername()">
-            <span>Click to edit: Username</span>
+          <div class="edit-overlay" fxLayout="row" fxLayoutAlign="center center" *ngIf="!editableUsername"
+            (click)="toggleEditableUsername()">
+            <span>Edit Username</span>
           </div>
-          <div fxLayout="row" fxLayoutAlign="space-between" *ngIf="editableUsername">
+          <div class="edit-field" fxLayout="row" fxLayoutAlign="space-between" *ngIf="editableUsername">
             <mat-form-field>
-              <input type="text" matInput value="{{currentUser?.username}}" placeholder="Username" formControlName="username">
+              <input type="text" matInput value="{{currentUser?.username}}" placeholder="Username"
+                formControlName="username">
             </mat-form-field>
             <div class="field-row-buttons">
               <div fxLayout="row">
-                <button class="stroked-btn" mat-stroked-button (click)="toggleEditableUsername()">Discard</button>
-                <button class="stroked-btn" mat-stroked-button [disabled]="userForm.controls['username'].errors">Save</button>
+                <button class="stroked-btn" mat-stroked-button (click)="toggleEditableUsername()">Cancel</button>
+                <button class="stroked-btn" mat-stroked-button [disabled]="userForm.controls['username'].errors"
+                  (click)='updateUser("Username")'>Save</button>
               </div>
             </div>
           </div>
-          <div class="field-row testing" fxLayout="row" fxLayoutAlign="center center" *ngIf="!editableEmail" (click)="toggleEditableEmail()">
-            <span>Click to edit: Email</span>
+          <div class="field-row edit-overlay" fxLayout="row" fxLayoutAlign="center center" *ngIf="!editableEmail"
+            (click)="toggleEditableEmail()">
+            <span>Edit Email</span>
           </div>
-          <div fxLayout="row" fxLayoutAlign="space-between" *ngIf="editableEmail">
+          <div class="edit-field" fxLayout="row" fxLayoutAlign="space-between" *ngIf="editableEmail">
             <mat-form-field>
-              <input type="email" matInput value={{currentUser?.email}} placeholder="Email" formControlName="email" >
+              <input type="email" matInput value={{currentUser?.email}} placeholder="Email" formControlName="email">
             </mat-form-field>
             <div class="field-row-buttons">
               <div fxLayout="row">
-                <button class="stroked-btn" mat-stroked-button (click)="toggleEditableEmail()">Discard</button>
-                <button class="stroked-btn" mat-stroked-button [disabled]="userForm.controls['email'].errors">Save</button>
+                <button class="stroked-btn" mat-stroked-button (click)="toggleEditableEmail()">Cancel</button>
+                <button class="stroked-btn" mat-stroked-button [disabled]="userForm.controls['email'].errors"
+                  (click)='updateUser("Email")'>Save</button>
               </div>
             </div>
           </div>
         </form>
-        <!-- <mat-action-row>
-          <button class="adjacent-button" mat-raised-button color="warn"
-            (click)="cancelUpdate(mep.expanded = false)">Cancel</button>
-          <button class="adjacent-button" mat-raised-button color="primary" [disabled]="!userForm.valid"
-            (click)="updateUser(mep.expanded = false)">Save</button>
-        </mat-action-row> -->
       </mat-expansion-panel>
       <mat-expansion-panel>
         <mat-expansion-panel-header>
           <mat-panel-title>
-            2-factor authentication
+            Two-Factor Authentication
           </mat-panel-title>
           <mat-panel-description fxLayoutAlign="end">
-            Enable/disable TFA
+            Enable/disable 2FA
           </mat-panel-description>
         </mat-expansion-panel-header>
-
         <app-tfa-settings #appTfaSettings></app-tfa-settings>
-        <!-- <form fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="5px" [formGroup]="tfaForm" >
-                    <mat-form-field>
-                      <input type="text" matInput placeholder="Auth code" formControlName="authCode" >
-                      <mat-error *ngIf="tfaForm.controls['authCode'].hasError('required')">Auth code field is required</mat-error>
-                    </mat-form-field>
-                    <button type="submit" mat-raised-button [disabled]="tfaForm.invalid" color="primary">Submit</button>
-                </form> -->
-
         <mat-action-row>
+          <!-- @TODO
+           Add Event Emitter to the Enable/Disable buttons to emit to tfa-settings component, to refresh the component or rerender.   
+          -->
           <button type="submit" mat-raised-button color="primary"
             (click)="tfaEnableVerify(appTfaSettings.tfaEnableForm.value.authCode)"
             *ngIf="!currentUser?.tfaEnabled">Enable</button>

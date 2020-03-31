@@ -14,14 +14,13 @@ import { Router } from '@angular/router';
 export class TfaSettingsComponent implements OnInit {
   currentUser: any;
   tfaSetup: any;
-  currentTfaSettings: any;
   tfaEnableForm: FormGroup;
 
   @Output()
   tfaFormValue = new EventEmitter<any>();
 
   constructor(private userService: UserService, private fb: FormBuilder, private TfaService: TfaService, private router: Router) {
-    this.tfaEnableForm = fb.group({
+    this.tfaEnableForm = this.fb.group({
       authCode: ['', [Validators.required]]
     })
   }
@@ -31,8 +30,6 @@ export class TfaSettingsComponent implements OnInit {
       this.currentUser = curUser;
       if (!this.currentUser.tfaEnabled) {
         this.showTfaSetup()
-      } else {
-        this.currentTfaSettings = curUser.tfaSecret;
       }
     });
     this.tfaFormValue.emit(this.tfaEnableForm.value['authCode']);

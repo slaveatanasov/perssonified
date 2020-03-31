@@ -46,14 +46,20 @@ export class SettingsComponent implements OnInit {
     this.editableEmail = !this.editableEmail;
   }
 
-  updateUser() {
-    if(this.userForm.valid) {
+  updateUser(valueClicked: string) {
+    if (this.userForm.valid) {
       this.userService.updateUser(this.userForm.value.username, this.userForm.value.email).subscribe(res => {
         if (res.updated) {
-          this.snackBar.open('User updated successfully.', 'Close', {
-          panelClass: 'login-snackbar',
-          duration: 5000
-        });
+          if (valueClicked === 'Username') {
+            this.toggleEditableUsername();
+          }
+          if (valueClicked === 'Email') {
+            this.toggleEditableEmail();
+          }
+          this.snackBar.open(`${valueClicked} updated successfully.`, 'Close', {
+            panelClass: 'login-snackbar',
+            duration: 5000
+          });
         } else {
           this.snackBar.open('User info remains unchanged.', 'Close', {
             panelClass: 'login-snackbar',
@@ -64,8 +70,7 @@ export class SettingsComponent implements OnInit {
     }
   }
 
-  cancelUpdate(arg) {
-    console.log('canceled')
+  cancelUpdate() {
     this.userForm.reset(
       this.userForm = this.fb.group({
         username: [this.currentUser.username, [Validators.required]],
@@ -73,15 +78,13 @@ export class SettingsComponent implements OnInit {
       })
     );
   }
-  
+
   tfaEnableVerify(authCode) {
-    console.log(authCode);
     this.TfaService.tfaEnableVerify({
       authCode
-    }).subscribe(res => {
-      console.log(res);
+    }).subscribe(() => {
+      this.router.navigate['/dashboard'];
     });
-    this.router.navigate['/dashboard'];
   }
 
   tfaDisable() {

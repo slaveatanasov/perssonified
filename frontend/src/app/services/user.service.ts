@@ -18,4 +18,5 @@ export class UserService {
   updateUser(username: string, email: string) {
     return this.http.put<{updated: boolean}>(`${environment.apiURL}/user`, {username, email });
   }
+  
 }
