@@ -1,9 +1,6 @@
-# See http://help.github.com/ignore-files/ for more about ignoring files.
-
-#Folders & files I added
+#Custom
 backend/.env
 backend/dist
-backend/config/index.ts
 
 # compiled output
 /dist

@@ -7,6 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MaterialModule } from './material.module';
 import { AppRoutingModule } from './app-routing.module';
+import { DragScrollModule } from 'ngx-drag-scroll';
 
 import { ApiKeyInterceptor } from './services/api-key.interceptor';
 import { JwtInterceptor } from './services/jwt.interceptor';
@@ -41,7 +42,8 @@ import { DashboardInfoComponent } from './components/dashboard-info/dashboard-in
     BrowserAnimationsModule,
     FlexLayoutModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    DragScrollModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ApiKeyInterceptor, multi: true }, 

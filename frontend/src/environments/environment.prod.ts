@@ -1,3 +1,5 @@
+// TODO - add it to .gitignore when version is final and credentials are changed.
+
 export const environment = {
   production: true,
   apiURL: 'https://perssonified-api.herokuapp.com/api',

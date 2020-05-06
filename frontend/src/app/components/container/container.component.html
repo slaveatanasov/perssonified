@@ -12,6 +12,8 @@
 
 <div class="container-grid-list">
   <mat-grid-list cols="2" rowHeight="610px" gutterSize="15px">
+
+    <!-- TODO - FOR SCROLLABLE CARDS SEE https://www.npmjs.com/package/ngx-owl-carousel-o -->
     <mat-grid-tile colspan="2" class="grid-tile-1">
       <div *ngIf="loading" class="progress-bar">
         <mat-progress-bar mode="indeterminate"></mat-progress-bar>
@@ -32,6 +34,7 @@
         </mat-card>
       </div>
     </mat-grid-tile>
+
     <mat-grid-tile class="grid-tile-2">
       <div *ngIf="loading" class="progress-bar">
         <mat-progress-bar mode="indeterminate"></mat-progress-bar>

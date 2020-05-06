@@ -2,6 +2,8 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+// TODO - add it to .gitignore when version is final and credentials are changed.
+
 export const environment = {
   production: false,
   apiURL: 'http://localhost:5000/api',

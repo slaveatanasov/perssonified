@@ -1,6 +1,8 @@
-@import '~@angular/material/theming';
+@import "~@angular/material/theming";
 
-$custom-typography: mat-typography-config($font-family: '"Arimo", sans-serif;');
+$custom-typography: mat-typography-config(
+  $font-family: '"Arimo", sans-serif;',
+);
 @include mat-core($custom-typography);
 
 $custom-primary: mat-palette($mat-blue);
@@ -8,26 +10,26 @@ $custom-accent: mat-palette($mat-amber);
 $custom-theme: mat-light-theme($custom-primary, $custom-accent);
 @include angular-material-theme($custom-theme);
 
-html, body { 
-    height: 100%; 
+html,
+body {
+  height: 100%;
 }
 
-body { 
-    margin: 0; 
-    /* font-family: Roboto, "Helvetica Neue", sans-serif;  */
-    /* font-family: 'Poppins', sans-serif;  */
-    font-family: 'Arimo', sans-serif;
+body {
+  margin: 0;
+  /* font-family: Roboto, "Helvetica Neue", sans-serif;  */
+  /* font-family: 'Poppins', sans-serif;  */
+  font-family: "Arimo", sans-serif;
 }
 
 .mat-figure {
-    justify-content: flex-start !important;
+  justify-content: flex-start !important;
 }
 
 .mat-button-focus-overlay {
-    background: none;
+  background: none;
 }
 
 .mat-card-content {
-    font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
 }
-
