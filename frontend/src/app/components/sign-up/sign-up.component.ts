@@ -21,7 +21,7 @@ export class SignUpComponent implements OnInit {
       email: ['', [Validators.required, Validators.pattern(this.emailValidationPattern)]],
       password: ['', [Validators.required, Validators.minLength(8)]],
       passwordConfirm: ['', [Validators.required]]
-    }, { validator: this.checkPasswords('password', 'passwordConfirm') });
+    }, { validator: this.checkPasswordsMatch('password', 'passwordConfirm') });
   }
 
   ngOnInit() {
@@ -49,7 +49,7 @@ export class SignUpComponent implements OnInit {
     )
   }
 
-  checkPasswords(password: string, confirmPassword: string) {
+  checkPasswordsMatch(password: string, confirmPassword: string) {
     return (group: FormGroup) => {
       let passwordInput = group.controls[password],
         passwordConfirmInput = group.controls[confirmPassword];

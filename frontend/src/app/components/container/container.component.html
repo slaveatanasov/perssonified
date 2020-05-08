@@ -8,27 +8,32 @@
   </ul>
 </div>
 
-<h1 class="page-title">News<i class="material-icons">subdirectory_arrow_left</i></h1>
+<h1 class="page-title">
+  News<i class="material-icons">subdirectory_arrow_left</i>
+</h1>
 
 <div class="container-grid-list">
   <mat-grid-list cols="2" rowHeight="610px" gutterSize="15px">
-
     <!-- TODO - FOR SCROLLABLE CARDS SEE https://www.npmjs.com/package/ngx-owl-carousel-o -->
     <mat-grid-tile colspan="2" class="grid-tile-1">
       <div *ngIf="loading" class="progress-bar">
         <mat-progress-bar mode="indeterminate"></mat-progress-bar>
       </div>
-      <div class="gallery-card" *ngFor="let item of mainNews; let i = index">
+      <div class="card-wrapper" *ngFor="let item of mainNews; let i = index">
         <mat-card *ngIf="i % 1 == 0">
-          <mat-card-title>{{item.title}}</mat-card-title>
+          <mat-card-title>{{ item.title }}</mat-card-title>
           <mat-card-content>
-            <p *ngIf="item.content; else noContent">{{item.content}}</p>
-            <div *ngIf="item.urlToImage; else noImage" class="card-image"
-              [style.background-image]="'url('+item.urlToImage+')'"></div>
+            <p *ngIf="item.content; else noContent">{{ item.content }}</p>
+            <div
+              *ngIf="item.urlToImage; else noImage"
+              class="card-image"
+              [style.background-image]="'url(' + item.urlToImage + ')'"
+            ></div>
             <div class="card-footer">
-              <span *ngIf="item.author; else noAuthor">Author: </span><span>{{item.author}}</span>
-              <br>
-              <span>Published: </span><span>{{item.publishedAt | date}}</span>
+              <span *ngIf="item.author; else noAuthor">Author: </span
+              ><span>{{ item.author }}</span>
+              <br />
+              <span>Published: </span><span>{{ item.publishedAt | date }}</span>
             </div>
           </mat-card-content>
         </mat-card>
@@ -40,17 +45,25 @@
         <mat-progress-bar mode="indeterminate"></mat-progress-bar>
       </div>
       <div class="grid-tile-2-content">
-        <div class="gallery-card-alt" *ngFor="let item of techNews; let i = index">
+        <div
+          class="card-wrapper-alt"
+          *ngFor="let item of techNews; let i = index"
+        >
           <mat-card *ngIf="i % 1 == 0">
-            <mat-card-title>{{item.title}}</mat-card-title>
+            <mat-card-title>{{ item.title }}</mat-card-title>
             <mat-card-content>
-              <p *ngIf="item.content; else noContent">{{item.content}}</p>
-              <div *ngIf="item.urlToImage; else noImage" class="card-image"
-                [style.background-image]="'url('+item.urlToImage+')'"></div>
+              <p *ngIf="item.content; else noContent">{{ item.content }}</p>
+              <div
+                *ngIf="item.urlToImage; else noImage"
+                class="card-image"
+                [style.background-image]="'url(' + item.urlToImage + ')'"
+              ></div>
               <div class="card-footer">
-                <span *ngIf="item.author; else noAuthor">Author: </span><span>{{item.author}}</span>
-                <br>
-                <span>Published: </span><span>{{item.publishedAt | date}}</span>
+                <span *ngIf="item.author; else noAuthor">Author: </span
+                ><span>{{ item.author }}</span>
+                <br />
+                <span>Published: </span
+                ><span>{{ item.publishedAt | date }}</span>
               </div>
             </mat-card-content>
           </mat-card>
@@ -62,17 +75,25 @@
         <mat-progress-bar mode="indeterminate"></mat-progress-bar>
       </div>
       <div class="grid-tile-2-content">
-        <div class="gallery-card-alt" *ngFor="let item of techNews; let i = index">
+        <div
+          class="card-wrapper-alt"
+          *ngFor="let item of techNews; let i = index"
+        >
           <mat-card *ngIf="i % 1 == 0">
-            <mat-card-title>{{item.title}}</mat-card-title>
+            <mat-card-title>{{ item.title }}</mat-card-title>
             <mat-card-content>
-              <p *ngIf="item.content; else noContent">{{item.content}}</p>
-              <div *ngIf="item.urlToImage; else noImage" class="card-image"
-                [style.background-image]="'url('+item.urlToImage+')'"></div>
+              <p *ngIf="item.content; else noContent">{{ item.content }}</p>
+              <div
+                *ngIf="item.urlToImage; else noImage"
+                class="card-image"
+                [style.background-image]="'url(' + item.urlToImage + ')'"
+              ></div>
               <div class="card-footer">
-                <span *ngIf="item.author; else noAuthor">Author: </span><span>{{item.author}}</span>
-                <br>
-                <span>Published: </span><span>{{item.publishedAt | date}}</span>
+                <span *ngIf="item.author; else noAuthor">Author: </span
+                ><span>{{ item.author }}</span>
+                <br />
+                <span>Published: </span
+                ><span>{{ item.publishedAt | date }}</span>
               </div>
             </mat-card-content>
           </mat-card>
@@ -83,17 +104,21 @@
       <div *ngIf="loading" class="progress-bar">
         <mat-progress-bar mode="indeterminate"></mat-progress-bar>
       </div>
-      <div class="gallery-card" *ngFor="let item of mainNews; let i = index">
+      <div class="card-wrapper" *ngFor="let item of mainNews; let i = index">
         <mat-card *ngIf="i % 1 == 0">
-          <mat-card-title>{{item.title}}</mat-card-title>
+          <mat-card-title>{{ item.title }}</mat-card-title>
           <mat-card-content>
-            <p *ngIf="item.content; else noContent">{{item.content}}</p>
-            <div *ngIf="item.urlToImage; else noImage" class="card-image"
-              [style.background-image]="'url('+item.urlToImage+')'"></div>
+            <p *ngIf="item.content; else noContent">{{ item.content }}</p>
+            <div
+              *ngIf="item.urlToImage; else noImage"
+              class="card-image"
+              [style.background-image]="'url(' + item.urlToImage + ')'"
+            ></div>
             <div class="card-footer">
-              <span *ngIf="item.author; else noAuthor">Author: </span><span>{{item.author}}</span>
-              <br>
-              <span>Published: </span><span>{{item.publishedAt | date}}</span>
+              <span *ngIf="item.author; else noAuthor">Author: </span
+              ><span>{{ item.author }}</span>
+              <br />
+              <span>Published: </span><span>{{ item.publishedAt | date }}</span>
             </div>
           </mat-card-content>
         </mat-card>
@@ -102,16 +127,16 @@
   </mat-grid-list>
 </div>
 
-<div class="footer">
+<footer class="footer">
   <span>Copyright Slave Atanasov 2020 - All rights reserved. </span>
-</div>
+</footer>
 
 <ng-template #noContent>
-  <p style="font-style: italic;">No content for this section available at this moment.</p>
+  <p style="font-style: italic;">No content available at this moment.</p>
 </ng-template>
 
 <ng-template #noImage>
-  <img src="../../../assets/img/no-image-available.jpg" class="card-image">
+  <img src="../../../assets/img/no-image-available.jpg" class="card-image" />
 </ng-template>
 
 <ng-template #noAuthor>

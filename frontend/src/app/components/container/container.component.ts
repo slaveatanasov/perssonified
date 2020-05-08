@@ -24,7 +24,6 @@ export class ContainerComponent implements OnInit {
     this.loading = true;
     this.newsApiService.getMainNews().subscribe(articles => {
       this.mainNews = articles;
-      // this.mainNews = [articles[0]];
       this.loading = false;
     });
   }

@@ -8,7 +8,6 @@ import { MatSnackBar } from '@angular/material';
 import { UserRegister, UserLogin } from '../models/user.model';
 import { environment } from 'src/environments/environment';
 
-
 @Injectable({
   providedIn: 'root'
 })

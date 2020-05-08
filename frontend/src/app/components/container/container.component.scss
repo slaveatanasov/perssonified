@@ -1,10 +1,10 @@
-.gallery-card {
+.card-wrapper {
   min-width: 500px;
-  max-width: 500px;
+  // max-width: 500px;
   height: 100%;
 }
 
-.gallery-card-alt {
+.card-wrapper-alt {
   height: 100%;
 }
 
@@ -51,11 +51,6 @@ mat-card-content p {
   height: 15rem;
   background-repeat: no-repeat;
   background-size: contain;
-}
-
-drag-scroll {
-  height: 610px;
-  width: 100%;
 }
 
 .news-categories {
